@@ -20,17 +20,24 @@ public class Inventory : MonoBehaviour
     [Tooltip("Items no inventario")]
     [SerializeField] public List<inventoryItems> inventory = new List<inventoryItems>();
 
-    public void AddItem(Item item)
+    /* public void AddItem(Item item)
     {
         bool itemExist = false;
         foreach (var invItem in inventory)
         {
-            print(inventory);
             if (invItem.item.itemName == item.itemName) 
             {
-                invItem.quant++;
-                itemExist = true;
-                inventoryGUIManager.UpdateValues();
+                if(item is Tool)
+                {
+                    break;
+                }
+                else
+                {
+                    invItem.quant++;
+                    itemExist = true;
+                    inventoryGUIManager.UpdateValues();
+                }
+               
             }
             else
             {
@@ -38,6 +45,28 @@ public class Inventory : MonoBehaviour
             }
         }
         if(!itemExist)
+        {
+            inventory.Add(new inventoryItems(item, 1));
+            inventoryGUIManager.UpdateValues();
+        }
+    }*/
+    public void AddItem(Item item)
+    {
+
+        if (inventory.Contains(SerachForItem(item)))
+        {
+            if(SerachForItem(item).item is Tool)
+            {
+                inventory.Add(new inventoryItems(item, 1));
+                inventoryGUIManager.UpdateValues();
+            }
+            else
+            {
+                SerachForItem(item).quant++;
+                inventoryGUIManager.UpdateValues();
+            }
+        }
+        else
         {
             inventory.Add(new inventoryItems(item, 1));
             inventoryGUIManager.UpdateValues();
@@ -52,7 +81,7 @@ public class Inventory : MonoBehaviour
                 inventory[i].quant--;
                 if (inventory[i].quant <= 0)
                 {
-                    print("item removido do inventario: " + inventory[i].item.itemName);
+                   
                     inventory.RemoveAt(i);
                     inventoryGUIManager.UpdateValues();
                 }
@@ -61,7 +90,7 @@ public class Inventory : MonoBehaviour
             }
         }
         // Item not found in inventory
-        Debug.LogWarning("Item not found in inventory");
+
     }
     public inventoryItems SerachForItem(Item item)
     {

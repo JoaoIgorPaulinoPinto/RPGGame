@@ -40,11 +40,15 @@ public class inventoryGUIManager : MonoBehaviour
 
     public void Usar()
     {
-        if (selectedCell != null && selectedCell.GetComponent<InventoryCell>().cellItem is Consumable)
+        if (selectedCell != null && selectedCell.GetComponent<InventoryCell>().cellItem is ConsumableBase item)
         {
-         
-            inventory.RemoveItem(inventory.SerachForItem(selectedCell.GetComponent<InventoryCell>().cellItem));
-            selectedCell = null;
+            item.UseConsumableItem();
+            if (item)
+            {
+                inventory.RemoveItem(inventory.SerachForItem(item));
+                selectedCell = null;
+            }
+
         }
     }
     public void Dropar()
@@ -57,4 +61,5 @@ public class inventoryGUIManager : MonoBehaviour
             selectedCell = null;
         }
     }
+
 }

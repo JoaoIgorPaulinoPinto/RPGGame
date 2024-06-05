@@ -4,20 +4,20 @@ using UnityEngine.UI;
 
 public class InventoryCell : MonoBehaviour
 {
+    [SerializeField] Sprite empySlotSprite;
     public Item cellItem;
     [SerializeField]Image spriteRender;
-    [SerializeField]TextMeshProUGUI? labelName;
-    [SerializeField]TextMeshProUGUI? labelQuant;
+    public TextMeshProUGUI? labelName;
+    public TextMeshProUGUI? labelQuant;
 
     public int quant = 0;
 
     public void SetValues(Item item, int qnt)
     {
+
         spriteRender.sprite = item.icon;
         labelName.text = item.itemName;
         labelQuant.text = qnt.ToString();
-
-      
 
         cellItem = item;
         quant =  qnt;
@@ -33,7 +33,8 @@ public class InventoryCell : MonoBehaviour
         this.cellItem = null;
         this.labelName.text = "";
         this.labelQuant.text = "";
-        this.spriteRender.sprite = default;
+        this.spriteRender.sprite = empySlotSprite;
+
     }
 
     private void Update()

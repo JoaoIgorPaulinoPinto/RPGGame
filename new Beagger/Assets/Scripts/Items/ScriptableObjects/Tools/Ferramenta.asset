@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c118987669aed4aa341e2d65c8e749, type: 3}
   m_Name: Ferramenta
   m_EditorClassIdentifier: 
-  itemName: MACHADO
+  itemName: Machado
   description: 'Use para cortar arvores '
-  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 706656945, guid: f7d73ca656be5204a9dca5c2acbc310c, type: 3}
   prefab: {fileID: 0}
   tool: {fileID: 11400000}
-  toolType: 0
+  toolType: 3
   damege: 3
   fireRate: 3
   canHit: 1

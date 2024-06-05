@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc2c35141a1f2a547b2051327586e965, type: 3}
   m_Name: comida
   m_EditorClassIdentifier: 
-  itemName: "Ma\xE7\xE3"
+  itemName: Carne
   description: Coma para sacear sua fome
-  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: -1213831746, guid: f7d73ca656be5204a9dca5c2acbc310c, type: 3}
   prefab: {fileID: 0}
-  lifeRealer: 32
+  lifeRealer: 12

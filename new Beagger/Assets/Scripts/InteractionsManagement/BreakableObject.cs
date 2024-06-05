@@ -19,7 +19,7 @@ public class BreakableObject : InteractableGameObject
         for (int i = 0; i < dropNumber; i++)
         {
 
-            Instantiate(dropPrefabs[Random.Range(0, dropPrefabs.Length)]);
+            Instantiate(dropPrefabs[Random.Range(0, dropPrefabs.Length)], transform.position, transform.rotation);
             this.gameObject.SetActive(false);
         }
     }

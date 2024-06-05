@@ -2,7 +2,7 @@
 
 using UnityEngine;
 [CreateAssetMenu(fileName = "New Item", menuName = "Items/Resource/Tool")]
-public class Tool : Item
+public class Tool: Item
 {
     public Tool tool;
     public ToolType toolType;

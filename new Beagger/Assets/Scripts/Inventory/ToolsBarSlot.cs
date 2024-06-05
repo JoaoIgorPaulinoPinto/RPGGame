@@ -3,8 +3,10 @@ using UnityEngine.UI;
 
 public class ToolsBarSlot : MonoBehaviour
 {
+    [SerializeField]EquipedToolsManager toolManager;
+    [SerializeField] Sprite empySlotSprite;
     public Image spriteRender;
-    Item item;
+    public Item item;
 
     public void SetValues(Item item)
     {
@@ -13,7 +15,17 @@ public class ToolsBarSlot : MonoBehaviour
     }
     public void UnSetValues()
     {
-        spriteRender.sprite = default;
+        spriteRender.sprite = empySlotSprite;
         this.item = null;
+    }
+
+    public void EquipTool()
+    {
+        Tool newTool = null;
+        if(item is Tool)
+        {
+            newTool = (Tool)item;
+        }
+        toolManager.ChangeEquipedTool(newTool);
     }
 }
