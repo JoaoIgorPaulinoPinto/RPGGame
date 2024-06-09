@@ -31,7 +31,7 @@ public class SellItemsUIManager : MonoBehaviour
     // Atualiza o preço total dos itens selecionados
     void UpdateTotalPrice()
     {
-        int valor = 0;
+        float    valor = 0;
         foreach (var i in central.selectedProducts)
         {
             valor += central.SerachForItemInProduct(i).price;

@@ -1,19 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using static ProductsGeneralTable;
 
 public class SellItems : MonoBehaviour
 {
     [SerializeField] SellItemsUIManager UIManager;
+    [SerializeField] ProductsGeneralTable table;
     public PlayerStts playerStts;
 
-
-    [System.Serializable]
-    public class Product
-    {
-        public Item item;
-        public int price;
-    }
     public List<Item> selectedProducts = new List<Item>();   
     
     public List<Product> Products = new List<Product>();
@@ -54,5 +48,21 @@ public class SellItems : MonoBehaviour
             }
         }
         return itemReturned;
+    }
+    private void StartProductTable()
+    {
+
+        foreach (var item in Products)
+        {
+            Product product = table.products.Find(i => i.item.itemName == item.item.itemName);
+            if (product != null)
+            {
+                item.price = product.price;
+            }
+        }
+    }
+    private void Start()
+    {
+        StartProductTable();
     }
 }

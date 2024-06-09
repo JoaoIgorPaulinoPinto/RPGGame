@@ -1,19 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using static ProductsGeneralTable;
+
 public class BuyItems : MonoBehaviour
 {
+    [SerializeField] ProductsGeneralTable table;
     [SerializeField] BuyItemsUIManager UIManager;
     public PlayerStts playerStts;
     [SerializeField] Inventory inventory;
 
-    [System.Serializable]
-    public class Product
-    {
-        public Item item;
-        public int price;
-    }
 
     public List<Item> selectedProducts = new List<Item>();
     public List<Product> Products = new List<Product>();
@@ -31,7 +27,7 @@ public class BuyItems : MonoBehaviour
             }
         }
     }
-
+    
     public void AddToBuyList(Item item)
     {
         selectedProducts.Add(item);
@@ -53,5 +49,22 @@ public class BuyItems : MonoBehaviour
             }
         }
         return null;
+    }
+    private void StartProductTable()
+    {
+
+        foreach (var item in Products)
+        {
+            Product product = table.products.Find(i => i.item.itemName == item.item.itemName);
+            if (product != null)
+            {
+                item.price = product.price;
+            }
+        }
+    }
+
+    private void Start()
+    {
+        StartProductTable();
     }
 }
