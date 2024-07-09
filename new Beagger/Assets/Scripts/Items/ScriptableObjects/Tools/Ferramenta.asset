@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Machado
   description: 'Use para cortar arvores '
-  icon: {fileID: 706656945, guid: f7d73ca656be5204a9dca5c2acbc310c, type: 3}
+  icon: {fileID: -7359534532176516909, guid: 47805a2dd8e6cd044b5a04653c5a9c01, type: 3}
   prefab: {fileID: 0}
   tool: {fileID: 11400000}
   toolType: 3

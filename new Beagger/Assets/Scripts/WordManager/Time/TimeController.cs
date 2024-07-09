@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class TimeController : MonoBehaviour
 {
+    [SerializeField] EconomyManager economyManager;
+
     [Header("Timer")]
     public float TimeScale = 1f;
     public bool stop = false;
@@ -18,6 +20,7 @@ public class TimeController : MonoBehaviour
     [Header("Week Count")]
     public int weekCount = 0;
     public int weekDuration = 7; // 7 days in a week
+    
 
     [Space]
 
@@ -86,6 +89,7 @@ public class TimeController : MonoBehaviour
     {
         if (dayCount >= weekDuration)
         {
+            economyManager.UpdateComerceEconomyValues();
             weekCount++;
             dayCount = 0; // Reset day count for the new week
         }

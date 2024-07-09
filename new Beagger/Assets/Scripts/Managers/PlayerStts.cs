@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerStts : MonoBehaviour
 {
+    public string playerName;
     public float money;
     [SerializeField] private TextMeshProUGUI txtdinheiro;
     private void Update()

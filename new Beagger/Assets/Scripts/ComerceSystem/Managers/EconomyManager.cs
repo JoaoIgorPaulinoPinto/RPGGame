@@ -4,12 +4,11 @@ public class EconomyManager : MonoBehaviour
 {
     public LocalEconomyManager[]localEconomyManager;
     public float generalIndexChange;
-
-    public void ChangeGeneralPrice()
+    public void UpdateComerceEconomyValues()
     {
         for (int i = 0; i < localEconomyManager.Length; i++)
         {
-            localEconomyManager[i].ChangeGeneralValues(generalIndexChange);
+            localEconomyManager[i].SaveChanges();
         }
     }
 }
