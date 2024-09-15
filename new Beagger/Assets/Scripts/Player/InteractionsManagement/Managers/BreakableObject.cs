@@ -1,5 +1,5 @@
     using UnityEngine;
-public class BreakableObject : InteractableGameObject
+public class BreakableObject : MonoBehaviour
 {
     [Tooltip("Oque sera dropado")]
 
@@ -9,7 +9,7 @@ public class BreakableObject : InteractableGameObject
     public int health;
     [Tooltip("Tipo do objeto(Pedra, Arvore etc...)")]
 
-    public InteractableGameObjectsType ObjectType;
+    public BreakableGameObjectsType ObjectType;
     [Tooltip("Quantos items serao dropados")]
 
     public int dropNumber;

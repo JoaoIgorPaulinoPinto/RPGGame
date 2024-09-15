@@ -9,11 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc2c35141a1f2a547b2051327586e965, type: 3}
-  m_Name: comida
+  m_Script: {fileID: 11500000, guid: a0d33d8de5f330348a314b7b62394642, type: 3}
+  m_Name: Comida
   m_EditorClassIdentifier: 
-  itemName: Carne
-  description: Coma para sacear sua fome
-  icon: {fileID: -1213831746, guid: f7d73ca656be5204a9dca5c2acbc310c, type: 3}
-  prefab: {fileID: 0}
-  lifeRealer: 12
+  origin: "Ma\xE7\xE3eira"
+  weight: 0.1
+  itemType: 1
+  rarityLevel: 0
+  condition: 1
+  itemName: "Ma\xE7\xE3"
+  description: 'Coma para sacear sua fome '
+  icon: {fileID: -8768847038458761587, guid: 8f6c3464495bd4643ad11da5f50356de, type: 3}
+  prefab: {fileID: 6935112757027500645, guid: fbc45878c1bc31d409719e87df97dcde, type: 3}
+  lifeRealer: 14

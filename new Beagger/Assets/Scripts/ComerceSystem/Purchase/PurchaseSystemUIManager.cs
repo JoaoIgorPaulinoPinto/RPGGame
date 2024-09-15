@@ -3,14 +3,16 @@ using UnityEngine;
 
 public class PurchaseSystemUIManager : MonoBehaviour
 {
+    public GameObject UI;
+
+    [Space]
+
     [SerializeField] TextMeshProUGUI lbl_TotalValue;
     [SerializeField] TextMeshProUGUI lbl_ClientName;
     [SerializeField] TextMeshProUGUI lbl_ComerciantName;
     [SerializeField] TextMeshProUGUI lbl_Quantity;
     [SerializeField] TextMeshProUGUI lbl_storeType;
     [SerializeField] TextMeshProUGUI lbl_playerMoney;
-
-
 
     [Space]
     [Space]
@@ -43,12 +45,13 @@ public class PurchaseSystemUIManager : MonoBehaviour
         foreach (Transform child in productsListParent.transform) { if (child != null) { Destroy(child.gameObject); } }
 
         foreach (Transform child in selectedListParent.transform) { if (child != null) { Destroy(child.gameObject); } }
-        
+
         SetProductsSlots();
 
         SetSelectedProductsSlots();
 
         purchaseSystem.UpdateTotalValue();
+        purchaseSystem.PricesCorrection();
 
         UpdateDetailsScreen();
     }
@@ -61,7 +64,7 @@ public class PurchaseSystemUIManager : MonoBehaviour
     {
         purchaseSystem.selectedProducts.Add(product);
         UpdateUI();
-        print( product.item.itemName + " ADICIONADO AO CARRINHO");
+        print(product.item.itemName + " ADICIONADO AO CARRINHO");
     }
     public void PurchaseComplete()
     {
@@ -75,7 +78,7 @@ public class PurchaseSystemUIManager : MonoBehaviour
     }
     public void UpdateDetailsScreen()
     {
-        if(purchaseSystem.totalValue > purchaseSystem.playerStts.money)
+        if (purchaseSystem.totalValue > PlayerStts.Instance.money)
         {
             lbl_TotalValue.color = Color.red;
         }
@@ -84,9 +87,9 @@ public class PurchaseSystemUIManager : MonoBehaviour
             lbl_TotalValue.color = Color.green;
 
         }
-        lbl_playerMoney.text = "R$ " +purchaseSystem.playerStts.money.ToString();
-        lbl_TotalValue.text = "R$ " +purchaseSystem.totalValue.ToString();
-        lbl_ClientName.text = purchaseSystem.playerStts.playerName;
+        lbl_playerMoney.text = "R$ " + PlayerStts.Instance.money.ToString();
+        lbl_TotalValue.text = "R$ " + purchaseSystem.totalValue.ToString();
+        lbl_ClientName.text = PlayerStts.Instance.playerName;
         lbl_ComerciantName.text = purchaseSystem.Store.SellerName;
         lbl_storeType.text = purchaseSystem.Store.StoreType.ToString();
         lbl_Quantity.text = purchaseSystem.selectedProducts.Count.ToString();

@@ -13,9 +13,9 @@ TagManager:
   - UI
   - Interactile Objects
   - NPC
-  - 
-  - 
-  - 
+  - BreakableGameObjects
+  - 'Enemies '
+  - Player
   - 
   - 
   - 
@@ -40,4 +40,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 1252468433
     locked: 0

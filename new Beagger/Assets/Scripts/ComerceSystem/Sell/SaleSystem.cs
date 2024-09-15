@@ -7,12 +7,9 @@ public class SaleSystem : MonoBehaviour
 {
      [SerializeField] ProductsGeneralTable productsGeneralTable;
 
-    public Store Store;
+    public StoreInfo Store;
 
-    public PlayerStts playerStts;
-    public Inventory inventory;
-
-    PurchaseSystemUIManager UIManager;
+    [SerializeField]SaleSystemUIManager UIManager;
 
     public List<Product> selectedProducts = new List<Product>();
     public List<Product> inventoryProducts = new List<Product>();
@@ -23,7 +20,7 @@ public class SaleSystem : MonoBehaviour
     {
         inventoryProducts.Clear();
         selectedProducts.Clear();
-        foreach (var item in inventory.inventory)
+        foreach (var item in Inventory.Instance.inventory)
         {
             for (int i = 0; i < item.quant; i++)
             {
@@ -32,10 +29,10 @@ public class SaleSystem : MonoBehaviour
                 Product newProduct = new Product(foundProduct.item, foundProduct.price);
 
                 inventoryProducts.Add(newProduct);
+                UIManager.UpdateUI();
             }
         }
     }
-
 
     public void UpdateTotalValue()
     {
@@ -52,13 +49,18 @@ public class SaleSystem : MonoBehaviour
         foreach (var item in selectedProducts)
         {
             totalValue += item.price;
-            inventory.RemoveItem(inventory.SerachForItem(item.item));
+            Inventory.Instance.RemoveItem(item.item, null);
         }
         selectedProducts.Clear();
-        playerStts.money += totalValue;
+        PlayerStts.Instance.money += totalValue;
+        UIManager.UpdateUI();
+        
+
     }
     public void SaleCanceled()
     {
         selectedProducts.Clear();
+        UIManager.UpdateUI();
+
     }
 }

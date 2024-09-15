@@ -15,5 +15,6 @@ MonoBehaviour:
   key_inventory: 9
   key_menu: 27
   key_interact: 101
-  key_atack: 32
+  key_atack: 0
+  key_use: 32
   key_dash: 304

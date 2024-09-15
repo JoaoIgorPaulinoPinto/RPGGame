@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9d97b72d994054c45bc6ee579a3db0eb
+guid: 839b94c69a89700498ac074e6f39ee10
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638557809658522445
+  platformSettingsDirtyTick: 638587415228139792
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -123,16 +123,16 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: new inventory UI  1
     originalName: 
-    pivot: {x: 0.603381, y: -1.8125}
+    pivot: {x: 0.69756097, y: -0.11320754}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 769
-      height: 352
-    spriteID: 44c358516b9d2e0479a1da4ff70c9c35
+      width: 205
+      height: 265
+    spriteID: ec365a13d9ef66a46a218eb8561815be
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,16 +144,16 @@ ScriptedImporter:
   spriteSheetImportData:
   - name: new inventory UI  1_0
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 147
-      y: 320
-      width: 617
-      height: 30
-    spriteID: 80723f6b4dbe2cf458fdbf397a5e6f4d
+      x: 4
+      y: 246
+      width: 23
+      height: 23
+    spriteID: 379825673c82a454eaa0bf1b4fd92953
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -164,16 +164,16 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: new inventory UI  1_1
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 768
-      y: 346
-      width: 5
-      height: 10
-    spriteID: 1d04d6ad00420794889d4807ee8ae315
+      x: 31
+      y: 246
+      width: 23
+      height: 23
+    spriteID: 392945d50da47be48a7f0d60fb28dd2d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -184,16 +184,16 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: new inventory UI  1_2
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 20
-      y: 313
-      width: 97
-      height: 19
-    spriteID: 94aa26c8b82149143ba07f9e2c450e98
+      x: 58
+      y: 247
+      width: 21
+      height: 21
+    spriteID: 3d0318a8b6ed6cc4f9694282a0a55aa0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -204,16 +204,16 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: new inventory UI  1_3
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 21
-      y: 291
-      width: 97
-      height: 19
-    spriteID: 7b7795a00599eda49a4b107bc42274c6
+      x: 85
+      y: 246
+      width: 23
+      height: 23
+    spriteID: e2587bed40f8d5a4cbb3bf00de9621b9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -224,16 +224,16 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: new inventory UI  1_4
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 156
-      y: 4
-      width: 328
-      height: 296
-    spriteID: 3163705b9635f7f40873f0ddff93cad1
+      x: 112
+      y: 246
+      width: 23
+      height: 23
+    spriteID: 377c7e852d8f8e64d9b4cba3c162f238
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -244,16 +244,16 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: new inventory UI  1_5
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0, y: 0}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 232
-      width: 50
-      height: 50
-    spriteID: 63a14ac29da1a9646b2f5c3274d4cff9
+      x: 5
+      y: 100
+      width: 31
+      height: 141
+    spriteID: 3169509fcb0bfa5488971e77dd1b3ec5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -269,11 +269,11 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 66
-      y: 232
-      width: 42
-      height: 45
-    spriteID: 528de0a3344084d41b64f4dbf249ee7a
+      x: 42
+      y: 100
+      width: 195
+      height: 141
+    spriteID: 9964dd6c357520040ab17543fd541097
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -289,51 +289,11 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 127
-      y: 245
-      width: 16
-      height: 18
-    spriteID: 10e9d736148baaa4dbb944ca34e1e253
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: new inventory UI  1_8
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 168
-      width: 50
-      height: 50
-    spriteID: 1fa52f17a2431dd4daf657eb096d1d4d
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: new inventory UI  1_9
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 82
-      y: 177
-      width: 32
-      height: 32
-    spriteID: 667f0a83bf42f784f9e18a89f6af70d9
+      x: 7
+      y: 4
+      width: 95
+      height: 85
+    spriteID: 066d72788930db24fabca38094babb83
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -354,11 +314,11 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 36
-        y: 638
-        width: 760
-        height: 346
-      spriteId: 44c358516b9d2e0479a1da4ff70c9c35
+        x: 7
+        y: 30
+        width: 233
+        height: 265
+      spriteId: ec365a13d9ef66a46a218eb8561815be
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -401,4 +361,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 1000, y: 1000}
+  canvasSize: {x: 300, y: 300}

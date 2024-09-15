@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class TimeController : MonoBehaviour
 {
-    [SerializeField] EconomyManager economyManager;
+
+    [SerializeField]EconomyManager economyManager;
 
     [Header("Timer")]
+    [Range(0f, 100f)]
     public float TimeScale = 1f;
     public bool stop = false;
 
@@ -13,7 +15,7 @@ public class TimeController : MonoBehaviour
     [Header("Day Count")]
     public int dayCount = 0;
     public int dayDuration = 86400; // Duration of a day in seconds (24 hours * 60 minutes * 60 seconds)
-    private int dayTimer = 0;
+    public int dayTimer = 0;
 
     [Space]
 
@@ -80,16 +82,19 @@ public class TimeController : MonoBehaviour
             WeekCount();
             MonthCount();
             YearCount();
-
-          
+            if(dayCount == 3)
+            {
+                economyManager.AjustPrices();
+            }
         }
+       
     }
 
     void WeekCount()
     {
         if (dayCount >= weekDuration)
         {
-            economyManager.UpdateComerceEconomyValues();
+           // economyManager.UpdateComerceEconomyValues();
             weekCount++;
             dayCount = 0; // Reset day count for the new week
         }

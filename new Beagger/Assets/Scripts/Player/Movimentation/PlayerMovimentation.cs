@@ -8,6 +8,8 @@ public enum ControlType
 
 public class PlayerMovementation : MonoBehaviour
 {
+    public bool canMove;
+
     [SerializeField] private ControlType controlType;
     [SerializeField] private Animator animatorController;
     [SerializeField] private float moveSpeed = 5f;
@@ -31,28 +33,30 @@ public class PlayerMovementation : MonoBehaviour
 
     void Move()
     {
+
         float X = Input.GetAxis("Horizontal");
+
         float Y = Input.GetAxis("Vertical");
-        movement = new Vector2(X, Y).normalized * moveSpeed;
-        rb.velocity = movement;
 
-        if (X != 0 || Y != 0)
+        if (canMove)
         {
-            // Se houver movimento, atualiza movement e lastDirection
-            lastDirection = movement;
-
-            animatorController.SetFloat("X", X);
-            animatorController.SetFloat("Y", Y);
+            movement = new Vector2(X, Y).normalized;
+            rb.velocity = movement * moveSpeed;
 
 
-            if (X < 0)
+            if (AimSystem.Instance.VerifyRotation() != Vector2.zero)    
             {
-                GetComponent<SpriteRenderer>().flipX = true;
+                lastDirection = AimSystem.Instance.VerifyRotation();
+
+                /*  
+                    animatorController.SetFloat("X", X);
+                    animatorController.SetFloat("Y", Y);
+                */
             }
-            else if (X > 0)
-            {
-                GetComponent<SpriteRenderer>().flipX = false;
-            }
+        }
+        else
+        {
+           //rb.velocity = Vector2.zero;
         }
     }
 }

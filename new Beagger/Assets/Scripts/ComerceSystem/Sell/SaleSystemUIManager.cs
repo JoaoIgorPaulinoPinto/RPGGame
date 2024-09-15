@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class SaleSystemUIManager : MonoBehaviour
 {
+    public GameObject UI;
+   
+
+    [Space]
 
     [SerializeField] TextMeshProUGUI lbl_TotalValue;
     [SerializeField] TextMeshProUGUI lbl_ClientName;
@@ -76,9 +80,9 @@ public class SaleSystemUIManager : MonoBehaviour
     }
     public void UpdateDetailsScreen()
     {
-        lbl_playerMoney.text = "R$ " + saleSystem.playerStts.money.ToString();
+        lbl_playerMoney.text = "R$ " + PlayerStts.Instance.money.ToString();
         lbl_TotalValue.text = "R$ " + saleSystem.totalValue.ToString();
-        lbl_ClientName.text = saleSystem.playerStts.playerName;
+        lbl_ClientName.text =  PlayerStts.Instance.playerName;
         lbl_ComerciantName.text = saleSystem.Store.SellerName;
         lbl_storeType.text = saleSystem.Store.StoreType.ToString();
         lbl_Quantity.text = saleSystem.selectedProducts.Count.ToString();

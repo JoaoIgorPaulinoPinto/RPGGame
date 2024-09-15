@@ -2,56 +2,60 @@ using UnityEngine;
 
 public class InteractionsCapter : MonoBehaviour
 {
+    [SerializeField] InteractionUIManager InteractionUIManager;
     public PlayerMovementation playerMovimentation;
-
-    [Tooltip("Foco, objeto interagível mais próximo do jogador")]
-    public InteractableGameObject objTarget;
-    public Collider2D[] objtsAround;
+    public Transform objTarget;
 
     [Tooltip("Alcance da checagem")]
     [SerializeField] float preLoaderRadius;
     [SerializeField] float distance;
     [SerializeField] float radius;
-    [SerializeField] int parts; 
-   
+    [SerializeField] int parts;
+
+    [SerializeField] float YRaysOffset;
     [SerializeField] LayerMask targetLayer;
+
     void Checker()
     {
-        objtsAround = Physics2D.OverlapCircleAll(transform.position, preLoaderRadius, targetLayer);
+        objTarget = null; // Começa assumindo que não há nenhum objeto próximo
 
-        foreach (var obj in objtsAround)
-        {
-            obj.GetComponent<InteractableGameObject>().isOnFocus = false;
-        }
+
+        float closestDistance = Mathf.Infinity;
 
         for (int i = 0; i < parts; i++)
         {
-            float angleOffset = i * (radius / parts) * -1; 
+            float angleOffset = i * (radius / parts) * -1;
             Vector2 direction = Quaternion.Euler(0, 0, angleOffset + radius / 2) * playerMovimentation.Direction.normalized;
-
-           Vector2 origin = (Vector2)transform.position;
-
+            Vector2 origin = new Vector2(transform.position.x, transform.position.y + YRaysOffset);
 
             RaycastHit2D hit = Physics2D.Raycast(origin, direction, distance, targetLayer);
-            Debug.DrawLine(origin, origin + direction * distance, Color.red);
+            Debug.DrawLine(origin, origin + direction * distance, hit ? Color.green : Color.red);
 
             if (hit.transform != null)
             {
-                Debug.DrawLine(origin, origin + direction * distance, Color.green);
+                hit.transform.TryGetComponent(out IInteractable hitObj);
 
-
-                InteractableGameObject hitObj = hit.transform.GetComponent<InteractableGameObject>();
                 if (hitObj != null)
                 {
-                    hitObj.isOnFocus = true;
-                    objTarget = hitObj;
-                    print(hitObj.name);
+                    // Verifica se o objeto atingido está mais próximo do jogador
+                    float hitDistance = Vector2.Distance(origin, hit.transform.position);
+                    if (hitDistance < closestDistance )
+                    {
+                        closestDistance = hitDistance;
+                        objTarget = hit.transform;
+                        InteractionUIManager.ShowUI(objTarget.gameObject);
+                    }
                 }
             }
         }
     }
+
     private void Update()
     {
         Checker();
+        if (!objTarget)
+        {
+            InteractionUIManager.HideUI();
+        }
     }
 }

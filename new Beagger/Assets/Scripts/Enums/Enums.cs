@@ -1,5 +1,4 @@
-public enum InteractableGameObjectsType{
-
+public enum BreakableGameObjectsType{
     None,
     Stone,
     Tree,
@@ -15,32 +14,58 @@ public enum StoreType {
 }
 public enum ToolType
 {
-
     None,
     Picaxe,
-    Sword,
     Axe
+}
+public enum WeaponType
+{
+    Sword,
+    Knife,
+    Bow,
 }
 public enum ItemType
 {
     None,
     Consumable,
     Tool, 
-    Armor,
+    Weapon,
+    Bag,
     Construction
 }
-public enum NPCActionType
+public enum InventorySlotType {
+    ToolsBarSlot,
+    ArmorSlot,
+    defaultType
+}
+public enum RarityLevel {
+    Common,
+    Uncommon,
+    Rare,
+    Epic,
+    Legendary
+}
+public enum NPCTaskType
 {
+    Work,
     Talk,
-    Steal,
+   // Steal,
     Sell,
     Buy
 }
-
-public enum NPCInteractionCompatibilities
+public enum NPCInteractionPointType
 {
     NPC,
     Comerce,
     Player,
     Object
+}
+public enum QuestType{
+    CollectItens
+}
+public enum MessageType 
+{ 
+   Alert,
+   Message,
+   Information
 }

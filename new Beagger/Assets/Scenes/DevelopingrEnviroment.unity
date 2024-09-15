@@ -400,6 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74203c3b742182f40bd0e70177529d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerName: 
   money: 100
   txtdinheiro: {fileID: 0}
 --- !u!114 &1109875408
@@ -427,10 +428,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 959f85ad8cc8a02468adac3cc06b77c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canMove: 0
   controlType: 1
   animatorController: {fileID: 1109875406}
   moveSpeed: 5
-  joystick: {fileID: 0}
+  movement: {x: 0, y: 0}
+  lastDirection: {x: 0, y: 0}
 --- !u!114 &1109875410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,8 +446,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b034c171f3b574ca742d16f45a9014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryGUIManager: {fileID: 0}
+  UIManager: {fileID: 0}
   inventory: []
+  limitWeight: 0
+  currentWeight: 0
 --- !u!114 &1109875411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,8 +462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3f4da5b101e934c985efa296a97eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolsManager: {fileID: 1109875408}
-  interactionsManager: {fileID: 1109875412}
 --- !u!114 &1109875412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,9 +474,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef5094018f474c4689362f656507d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractionUIManager: {fileID: 0}
+  playerMovimentation: {fileID: 0}
   objTarget: {fileID: 0}
-  targetsAround: []
+  preLoaderRadius: 0
+  distance: 0
   radius: 1.6
+  parts: 0
+  YRaysOffset: 0
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -588,7 +596,7 @@ SpriteRenderer:
   m_Size: {x: 0.75, y: 1.375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!4 &1109875416
