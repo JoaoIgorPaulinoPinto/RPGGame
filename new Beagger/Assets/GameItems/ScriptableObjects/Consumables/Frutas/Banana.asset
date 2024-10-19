@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d33d8de5f330348a314b7b62394642, type: 3}
+  m_Name: Banana
+  m_EditorClassIdentifier: 
+  origin: Bananeira
+  weight: 0.08
+  itemType: 1
+  rarityLevel: 0
+  condition: 100
+  itemName: Banana
+  description: Use para saciar sua fome.
+  icon: {fileID: 250802673543755128, guid: f81cc83a4865d0848ae50db313c85636, type: 3}
+  prefab: {fileID: 2677397921559612445, guid: 92b24776587e8964bb702ba643f8a0bc, type: 3}
+  InHandItemprefab: {fileID: 2677397921559612445, guid: 92b24776587e8964bb702ba643f8a0bc, type: 3}
+  efectPower: 20
+  time: 4
+  type: 0

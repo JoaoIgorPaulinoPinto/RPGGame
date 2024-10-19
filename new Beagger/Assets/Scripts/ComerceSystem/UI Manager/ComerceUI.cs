@@ -20,9 +20,10 @@ public class ComerceUI : MonoBehaviour
         purSys = purInfo;
         saleSys = saleInfo;
 
-        UIPurchase.TryGetComponent<PurchaseSystemUIManager>(out pur);
-    
-        UISale.TryGetComponent<SaleSystemUIManager>(out sale);
+        UIPurchase.TryGetComponent<PurchaseSystemUIManager>(out PurchaseSystemUIManager i);
+        pur = i;
+        UISale.TryGetComponent<SaleSystemUIManager>(out SaleSystemUIManager a);
+        sale = a;
 
         if (pur != null && sale != null)
         {
@@ -33,47 +34,68 @@ public class ComerceUI : MonoBehaviour
     }
     public void SetTabAsActive(GameObject button)
     {
+
+        if(!sale || !saleSys || !sale)
+        {
+            return;
+        }else
+        {
+            pur.UpdateUI();
+
+            saleSys.SetInventoryItemsAsProducts();
+
+            sale.UpdateUI();
+            if (button == UIPurchase)
+            {
+
+                UIPurchase.SetActive(true); UISale.SetActive(false);
+
+
+
+            }
+            else if (button == UISale)
+            {
+
+
+                UIPurchase.SetActive(false); UISale.SetActive(true);
+
+
+
+
+            }
+            else
+            {
+                print("ERRO<<TELA NAO ENCONTRADA>>");
+            }
+        }
+      
+    }
+
+    public void Open()  
+    {
+        GeneralUIManager.Instance.animator.SetBool("Comerce", true);
         pur.UpdateUI();
-        pur.UpdateUI();
+
         saleSys.SetInventoryItemsAsProducts();
 
         sale.UpdateUI();
-        if (button == UIPurchase)
-        {
-
-            UIPurchase.SetActive(true); UISale.SetActive(false);
-
-
-
-        }
-        else if (button == UISale)
-        {
-            
-
-            UIPurchase.SetActive(false); UISale.SetActive(true);
-
-
-
-
-        }
-        else
-        {
-            print("ERRO<<TELA NAO ENCONTRADA>>");
-        }
-    }
-
-    public void Open()
-    {
         SetTabAsActive(UISale); 
         playerControlsManager.realease = false;
         GameHUD.SetActive(false);
     }
     public void Close()
     {
+        StartCoroutine(waitToClose());
+    }
+    IEnumerator waitToClose()
+    {
+        GeneralUIManager.Instance.animator.SetBool("Comerce", false);
+
+        GameHUD.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
         playerControlsManager.realease = true;
         UIPurchase.SetActive(false);
         UISale.SetActive(false);
 
-        GameHUD.SetActive(true) ;
     }
 }

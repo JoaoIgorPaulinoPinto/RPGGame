@@ -8,7 +8,8 @@ public class KeyBinding : ScriptableObject
     public KeyCode key_inventory;
     public KeyCode key_menu;
     public KeyCode key_interact;
-    public int key_atack;
+    public int mouseKey_atack;
+    public int mouseKey_use;
     public KeyCode key_use;
     public KeyCode key_dash;
-}
+}   

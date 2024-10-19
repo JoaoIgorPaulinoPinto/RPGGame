@@ -45,15 +45,15 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: ef812a6e310ddac488d1cf79462edca9, type: 2}
     m_Threshold: 0.25
-    m_Position: {x: 0, y: 0.1}
+    m_Position: {x: 0, y: -0.1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: ef812a6e310ddac488d1cf79462edca9, type: 2}
+    m_Motion: {fileID: 7400000, guid: 17b37eff611dc174e895ca4ecc4368b5, type: 2}
     m_Threshold: 0.5
-    m_Position: {x: 0, y: -0.1}
+    m_Position: {x: 0, y: 0.1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
@@ -104,6 +104,12 @@ AnimatorController:
     m_Controller: {fileID: 9100000}
   - m_Name: Y
     m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: Atack
+    m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0

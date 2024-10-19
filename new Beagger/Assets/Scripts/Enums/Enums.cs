@@ -33,6 +33,15 @@ public enum ItemType
     Bag,
     Construction
 }
+
+public enum ConsumableType 
+{
+    Food,
+    Water,
+    Poison,
+    Sweet
+}
+
 public enum InventorySlotType {
     ToolsBarSlot,
     ArmorSlot,

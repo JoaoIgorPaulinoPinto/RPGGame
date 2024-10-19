@@ -15,14 +15,13 @@ public class AimSystem : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
     }
 
     [SerializeField] float maxDistance; // Distância máxima da arma ao pivô
     [SerializeField] float Ymultplyer; // Distância máxima da arma ao pivô
     [SerializeField] Transform pivot;
-    [SerializeField] Transform gun;
+    [SerializeField] public Transform gun;
 
     [Tooltip("Alcance da checagem")]
     [SerializeField] float distance;
@@ -41,7 +40,6 @@ public class AimSystem : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         pivot.rotation = Quaternion.Euler(0, 0, angle);
     }
-
     private void AdjustGunDistance()
     {
         // Distância do pivô até a posição Y zero (eixo horizontal)
@@ -84,10 +82,14 @@ public class AimSystem : MonoBehaviour
     }
 
 
-    public Vector2 VerifyRotation()
+    public Vector2 VerifyRotation() 
     {
-        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = mousePos - (Vector2)transform.position;
-        return direction.normalized;
+        if (PlayerControlsManager.Instance.realease)
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = mousePos - (Vector2)transform.position;
+            return direction.normalized;
+        }
+        return Vector2.zero;
     }
 }

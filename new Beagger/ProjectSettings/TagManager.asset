@@ -16,10 +16,10 @@ TagManager:
   - BreakableGameObjects
   - 'Enemies '
   - Player
-  - 
-  - 
-  - 
-  - 
+  - Ground/Dirt
+  - Ground/Glass
+  - Ground/Concret
+  - 'Post Processing '
   - 
   - 
   - 

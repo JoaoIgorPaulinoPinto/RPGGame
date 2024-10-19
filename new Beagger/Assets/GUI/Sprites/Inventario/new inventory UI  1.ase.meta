@@ -144,13 +144,13 @@ ScriptedImporter:
   spriteSheetImportData:
   - name: new inventory UI  1_0
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 246
+      y: 261
       width: 23
       height: 23
     spriteID: 379825673c82a454eaa0bf1b4fd92953
@@ -164,13 +164,13 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: new inventory UI  1_1
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 31
-      y: 246
+      y: 261
       width: 23
       height: 23
     spriteID: 392945d50da47be48a7f0d60fb28dd2d
@@ -184,13 +184,13 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: new inventory UI  1_2
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 58
-      y: 247
+      y: 262
       width: 21
       height: 21
     spriteID: 3d0318a8b6ed6cc4f9694282a0a55aa0
@@ -204,13 +204,13 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: new inventory UI  1_3
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 85
-      y: 246
+      y: 261
       width: 23
       height: 23
     spriteID: e2587bed40f8d5a4cbb3bf00de9621b9
@@ -224,13 +224,13 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: new inventory UI  1_4
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 112
-      y: 246
+      y: 261
       width: 23
       height: 23
     spriteID: 377c7e852d8f8e64d9b4cba3c162f238
@@ -244,13 +244,13 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: new inventory UI  1_5
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 5
-      y: 100
+      y: 115
       width: 31
       height: 141
     spriteID: 3169509fcb0bfa5488971e77dd1b3ec5
@@ -270,8 +270,8 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 42
-      y: 100
-      width: 195
+      y: 115
+      width: 168
       height: 141
     spriteID: 9964dd6c357520040ab17543fd541097
     spriteBone: []
@@ -290,10 +290,190 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 7
-      y: 4
+      y: 19
       width: 95
       height: 85
     spriteID: 066d72788930db24fabca38094babb83
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: new inventory UI  1_8
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 106
+      y: 58
+      width: 84
+      height: 46
+    spriteID: 09fd50a17c1acaf49a0eac60adc6fa04
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: new inventory UI  1_9
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 132
+      y: 33
+      width: 58
+      height: 22
+    spriteID: 248e647244dad304ba9de58b5be37b28
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: new inventory UI  1_10
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 106
+      y: 34
+      width: 22
+      height: 22
+    spriteID: 2ed93c1be391c0542b15f5abb42e58b0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: new inventory UI  1_11
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 109
+      y: 4
+      width: 24
+      height: 23
+    spriteID: abecb3a70029f55498646432d43dcbc0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: new inventory UI  1_12
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 143
+      y: 260
+      width: 23
+      height: 23
+    spriteID: c515444e6d8afc34aabbcd6525f5a7a0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: new inventory UI  1_13
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 170
+      y: 260
+      width: 23
+      height: 23
+    spriteID: 3ca0b10e1e8099342b32db9aa1a58607
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: new inventory UI  1_14
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 224
+      y: 260
+      width: 23
+      height: 23
+    spriteID: 3c8be3de5e8a64f49bfb9cd31743a359
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: new inventory UI  1_15
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 251
+      y: 260
+      width: 23
+      height: 23
+    spriteID: 93694c73adafc6a42a9c8b7fac04b6d0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: new inventory UI  1_16
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 221
+      y: 225
+      width: 32
+      height: 32
+    spriteID: 81d3f18111340154897211a1e0114605
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -315,9 +495,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 7
-        y: 30
-        width: 233
-        height: 265
+        y: 15
+        width: 270
+        height: 280
       spriteId: ec365a13d9ef66a46a218eb8561815be
     linkedCells: []
     parentIndex: -1

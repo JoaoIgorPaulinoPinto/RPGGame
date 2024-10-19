@@ -1,9 +1,13 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SaleSystemSlot : MonoBehaviour
 {
+    AudioSource ad;
+    [SerializeField] AudioClip pointerEnter;
+    [SerializeField] AudioClip pointerClick;
 
     public Product product;
     [HideInInspector] public SaleSystemUIManager SaleUIManager;
@@ -14,7 +18,11 @@ public class SaleSystemSlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI lblItemPrice;
     [SerializeField] Image iconRender;
 
+    private void Start()
+    {
+        ad = GeneralReferences.Instance.UIAudioSource;
 
+    }
     public void SetValues(Product _product, SaleSystemUIManager _UIManager)
     {
         SaleUIManager = _UIManager;
@@ -35,4 +43,15 @@ public class SaleSystemSlot : MonoBehaviour
     {
         SaleUIManager.AddProduct(product);
     }
+    public void OnPointerEnter()
+    {
+        ad.clip = pointerEnter;
+        ad.Play();
+    }
+    public void OnPointeClick()
+    {
+        ad.clip = pointerClick;
+        ad.Play();
+    }
+
 }

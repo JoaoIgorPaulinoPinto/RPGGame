@@ -4,16 +4,17 @@ using UnityEngine;
 
 [System.Serializable]
 public class StoreInfo
-{
+{ 
     public string StoreName;
     public string SellerName;
     public StoreType StoreType;
 
+
     public StoreInfo (string storeName, string sellerName, StoreType storeType)
     {
-        StoreName = storeName;
-        SellerName = sellerName;
-        StoreType = storeType;
+        this.StoreName = storeName;
+        this.SellerName = sellerName;
+        this.StoreType = storeType;
     }
 }
 

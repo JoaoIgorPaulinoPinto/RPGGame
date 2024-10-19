@@ -1,28 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EconomyManager : MonoBehaviour
 {
+    public static EconomyManager instance;
     public ProductsGeneralTable ProductsGeneralTable;
 
+    private void Start()
+    {
+        instance = this;
+    }
+
+    // Método para ajustar os preços
     public void AjustPrices()
     {
-        foreach (var product in ProductsGeneralTable.products)
-        {
-           
-            float adjustmentFactor = 1 + (500 - product.quant) / 1000f;
-
-           
-            float newPrice = product.price * adjustmentFactor;
-
-            product.price = Mathf.Max(newPrice, 2);
-        }
+        ProductsGeneralTable.AdjustPrices();
     }
+    public void ReplaceProducts()
+    {
+        ProductsGeneralTable.ReplaceProducts();
+    }
+
     private void Update()
     {
+        // Pressionar a tecla 'V' recalcula os preços
         if (Input.GetKeyUp(KeyCode.V))
         {
             AjustPrices();

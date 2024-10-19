@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ad426cba674b8418949666b2813f4e, type: 3}
+  m_Name: LataVazia
+  m_EditorClassIdentifier: 
+  origin: "F\xE1brica"
+  weight: 0.1
+  itemType: 0
+  rarityLevel: 0
+  condition: 100
+  itemName: Lata Vazia
+  description: Use para armazenar liquidos ou alimentos;
+  icon: {fileID: 5303368022445692655, guid: f81cc83a4865d0848ae50db313c85636, type: 3}
+  prefab: {fileID: 6935112757027500645, guid: b49b328c707bc7d458275d5c649d4889, type: 3}
+  InHandItemprefab: {fileID: 6935112757027500645, guid: b49b328c707bc7d458275d5c649d4889, type: 3}
+  size: 2
+  acceptedItems: 01000000

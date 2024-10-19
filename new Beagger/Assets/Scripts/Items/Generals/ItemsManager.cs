@@ -18,12 +18,12 @@ public class ItemsManager : MonoBehaviour
         }
     }
 
-    public void DropItem(ItemData item, int quant)
+    public void DropItem(ItemData item, int quant, Transform dropPosition)
     {
         for (int i = 0; i < quant; i++)
         {
-            Vector2 pos = new Vector2(transform.position.x + Random.Range(-0.8f, 0.8f), transform.position.y + Random.Range(-0.8f, 0.8f));
-            GameObject droppedItem = Instantiate(item.prefab, pos, Quaternion.identity);
+            Vector2 pos = new Vector2(dropPosition.position.x + Random.Range(-0.8f, 0.8f), dropPosition.position.y + Random.Range(-0.8f, 0.8f));
+            GameObject dropedItem = Instantiate(item.prefab, pos, Quaternion.identity);
         }
     }/*
     public void TakeItem(Transform collision)

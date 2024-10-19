@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba16c0042810b74d9efa1df8ae268b4, type: 3}
+  m_Name: Picareta
+  m_EditorClassIdentifier: 
+  origin: 'Ferreiro '
+  weight: 1.6
+  itemType: 2
+  rarityLevel: 0
+  condition: 100
+  itemName: Picareta
+  description: Usado para cortar arvores
+  icon: {fileID: 8979896494735254760, guid: dc3391bcd809dc44589474b83b18f2c3, type: 3}
+  prefab: {fileID: 6791387831742643438, guid: e6e8ab0cede86ab42aa160912b263cc0, type: 3}
+  InHandItemprefab: {fileID: 6791387831742643438, guid: e6e8ab0cede86ab42aa160912b263cc0, type: 3}
+  toolType: 1
+  damage: 23
+  cadence: 2
+  mask:
+    serializedVersion: 2
+    m_Bits: 768

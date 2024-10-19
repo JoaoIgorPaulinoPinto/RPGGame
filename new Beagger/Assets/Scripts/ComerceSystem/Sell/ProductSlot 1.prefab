@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8480362781175248157}
   - component: {fileID: 4656101693249072403}
   - component: {fileID: -3022317162032816925}
+  - component: {fileID: 4781530441167333881}
   m_Layer: 0
   m_Name: ProductSlot 1
   m_TagString: Untagged
@@ -148,6 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b08737d652d19d845aa43d5ff1e7683a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointerEnter: {fileID: 8300000, guid: e5c0b5435124eee4a9bab0e4dc5c16b7, type: 3}
+  pointerClick: {fileID: 8300000, guid: 3fbec5a8ff835b34098436a9a752f675, type: 3}
   product:
     item: {fileID: 0}
     price: 0
@@ -156,6 +159,51 @@ MonoBehaviour:
   lblItemName: {fileID: 7139856053584915615}
   lblItemPrice: {fileID: 3408595055215775546}
   iconRender: {fileID: 638335675173637458}
+--- !u!114 &4781530441167333881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558274135006131540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: -3022317162032816925}
+          m_TargetAssemblyTypeName: SaleSystemSlot, Assembly-CSharp
+          m_MethodName: OnPointerEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: -3022317162032816925}
+          m_TargetAssemblyTypeName: SaleSystemSlot, Assembly-CSharp
+          m_MethodName: OnPointeClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1504000311567459309
 GameObject:
   m_ObjectHideFlags: 0
@@ -322,10 +370,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5000482740136052090}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 100.47, y: 20.125183}
-  m_SizeDelta: {x: 187.33, y: 157.9709}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 22.3}
+  m_SizeDelta: {x: 157.42542, y: 132.75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6056799339282795752
 CanvasRenderer:

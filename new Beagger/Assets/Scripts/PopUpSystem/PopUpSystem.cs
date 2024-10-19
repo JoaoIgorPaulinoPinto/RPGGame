@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.VersionControl;
+//using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class PopUpSystem : MonoBehaviour
 {
+    [SerializeField]AudioSource audioSource;
+    [SerializeField]AudioClip clip;
+
     public static PopUpSystem Instance { get; private set; }
 
     private void Awake()
@@ -32,14 +35,20 @@ public class PopUpSystem : MonoBehaviour
     [SerializeField] GameObject prefab;
     [SerializeField] Transform parent;
 
-    public void SendMsg(string msg, MessageType type, float timewait)
+    public void SendMsg(string msg, MessageType type, float? timewait)
     {
+        float time = timewait ?? 3f;
         PopUpCard card = Instantiate(prefab, parent).GetComponent<PopUpCard>();
        
         switch (type){
-            case MessageType.Alert: card.SetValues(msg,icon_alert, timewait); break;
-            case MessageType.Information: card.SetValues(msg, icon_info, timewait); break;
-            case MessageType.Message: card.SetValues(msg, icon_message, timewait); break;
+            case MessageType.Alert: card.SetValues(msg,icon_alert, time); break;
+            case MessageType.Information: card.SetValues(msg, icon_info, time); break;
+            case MessageType.Message: card.SetValues(msg, icon_message, time); break;
         }
+        card.TryGetComponent<Animator>(out Animator animator);
+        //animator.SetBool("PopUp", true);
+        audioSource.clip = clip;
+        audioSource.Play();
     }
+
 }

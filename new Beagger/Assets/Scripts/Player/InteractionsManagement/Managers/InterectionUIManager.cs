@@ -5,6 +5,7 @@ public class InteractionUIManager : MonoBehaviour
 {
     public static InteractionUIManager Instance { get; private set; }
 
+    [SerializeField]Animator animator;
     [SerializeField] GameObject UI;
     [SerializeField] TextMeshProUGUI lbl_funcName;
 
@@ -26,6 +27,7 @@ public class InteractionUIManager : MonoBehaviour
     {
         if (target.TryGetComponent<InteractableGameObject>(out InteractableGameObject i))
         {
+            GeneralUIManager.Instance.animator.SetBool("UIInteract", true);
             UI.SetActive(true);
             lbl_funcName.text = i.interactionName;
         }
@@ -33,6 +35,7 @@ public class InteractionUIManager : MonoBehaviour
 
     public void HideUI()
     {
+        GeneralUIManager.Instance.animator.SetBool("UIInteract", false);
         UI.SetActive(false);
     }
 }

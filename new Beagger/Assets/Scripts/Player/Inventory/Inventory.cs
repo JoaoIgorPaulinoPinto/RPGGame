@@ -1,21 +1,21 @@
 using UnityEngine;
 using System.Collections.Generic;
+[System.Serializable]
+public class InventoryItems
+{
+    public ItemData item;
+    public int quant;
 
+    public InventoryItems(ItemData item, int quantity)
+    {
+        this.item = item;
+        this.quant = quantity;
+    }
+}
 public class Inventory : MonoBehaviour
 {
-    [System.Serializable]
-    public class InventoryItems
-    {
-        public ItemData item;
-        public int quant;
 
-        public InventoryItems(ItemData item, int quantity)
-        {
-            this.item = item;
-            this.quant = quantity;
-        }
-    }
-
+    [SerializeField] InventoryToolsBarManager invToolsBarManager;
     public InventoryUIManager UIManager;
     [SerializeField] public List<InventoryItems> inventory = new List<InventoryItems>();
     public float defaultLimitWeight;
@@ -23,11 +23,6 @@ public class Inventory : MonoBehaviour
     public float currentWeight;
 
     public static Inventory Instance { get; private set; }
-
-    private void Start()
-    {
-        limitWeight = defaultLimitWeight;
-    }
 
     private void Awake()
     {
@@ -41,12 +36,22 @@ public class Inventory : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
+    private void Start()
+    {
+        limitWeight = defaultLimitWeight;
+    }
+
 
     public bool AddItem(ItemData item)
     {
         if (!WeightLimitChecker(item.weight))
         {
-            Debug.Log("Weight limit exceeded.");
+            PopUpSystem.Instance.SendMsg("Você não pode carregar mais peso...", MessageType.Alert, null);
+            return false;
+        }else if (UIManager.VerifyEmpSlots())
+        {
+            PopUpSystem.Instance.SendMsg("Você não possui mais espaços no inventario", MessageType.Alert, null);
+
             return false;
         }
 
@@ -65,7 +70,7 @@ public class Inventory : MonoBehaviour
                 UIManager.UpdateSlotValues(existingItem, null);
             }
         }
-        else
+        else 
         {
             var newInventoryItem = new InventoryItems(item, 1);
             inventory.Add(newInventoryItem);
@@ -73,6 +78,7 @@ public class Inventory : MonoBehaviour
         }
 
         RecalculateWeight(); // Recalcula o peso
+        invToolsBarManager.UpdateToolsBarData();
         return true;
     }
 
@@ -93,13 +99,14 @@ public class Inventory : MonoBehaviour
                 {
                     UIManager.RemoveFromUI(inventory[i], slot);
                     inventory.RemoveAt(i);
+                    EquipedItemsManager.Instance.ChangeEquipedTool(null);
                 }
                 itemRemoved = true;
                 RecalculateWeight(); // Recalcula o peso
                 break;
             }
         }
-
+        invToolsBarManager.UpdateToolsBarData();
         return itemRemoved;
     }
 
@@ -137,7 +144,7 @@ public class Inventory : MonoBehaviour
         {
             if (inventory[i].quant > 0)
             {
-                ItemsManager.Instance.DropItem(inventory[i].item, inventory[i].quant);
+                ItemsManager.Instance.DropItem(inventory[i].item, inventory[i].quant, transform);
                 RemoveItem(inventory[i].item, null);
             }
         }

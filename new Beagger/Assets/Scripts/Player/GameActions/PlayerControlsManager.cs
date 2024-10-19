@@ -31,19 +31,25 @@ public class PlayerControlsManager : MonoBehaviour
     {
         if (realease)
         {
+
+
             Interact();
             Inventory();
             UseEquipedItem();
             references.PlayerMovementation.canMove = true;
+            
         }
         else
         {
+
             InteractionUIManager.Instance.HideUI();
             if (references.inventoryUIManager.isOpen)
             {
                 Inventory();
             }
             references.PlayerMovementation.canMove = false;
+            references.PlayerMovementation.animatorController.SetFloat("X", 0);
+            references.PlayerMovementation.animatorController.SetFloat("Y", 0);
         }
     }
 
@@ -78,21 +84,21 @@ public class PlayerControlsManager : MonoBehaviour
 
     void UseEquipedItem()
     {
-        ItemData item = references.EquipedItemsManager.EquipedItem;
-        if (references.EquipedItemsManager.EquipedItem != null)
+        ItemData item = EquipedItemsManager.Instance.EquipedItem;
+        if (EquipedItemsManager.Instance.EquipedItem != null)
         {
             if ( item is Tool || item is Weapon )
             {
-                if (Input.GetMouseButton(KeyBinding.key_atack))
+                if (Input.GetMouseButton(KeyBinding.mouseKey_atack))
                 {
-                    UseItemsSystem.Instance.Atack(references.EquipedItemsManager.EquipedItem);
+                    UseItemsSystem.Instance.Atack(EquipedItemsManager.Instance.EquipedItem);
                 }
             }
             else
             {
-                if (Input.GetKey(KeyBinding.key_use))
+                if (Input.GetMouseButtonDown(KeyBinding.mouseKey_use))
                 {
-                    UseItemsSystem.Instance.Use(references.EquipedItemsManager.EquipedItem);
+                    UseItemsSystem.Instance.Use(EquipedItemsManager.Instance.EquipedItem);
                 }
             }
           

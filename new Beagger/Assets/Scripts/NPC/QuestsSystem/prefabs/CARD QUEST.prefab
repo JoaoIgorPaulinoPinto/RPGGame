@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 466291851479474042}
   - component: {fileID: 6580783433269627358}
   - component: {fileID: 4736185305252602931}
+  - component: {fileID: 3501132925357239475}
   m_Layer: 5
   m_Name: Button_entrega
   m_TagString: Untagged
@@ -133,6 +134,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3501132925357239475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418719778892473988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3498561619305540366}
+          m_TargetAssemblyTypeName: QuestCard, Assembly-CSharp
+          m_MethodName: OnPointerEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3498561619305540366}
+          m_TargetAssemblyTypeName: QuestCard, Assembly-CSharp
+          m_MethodName: OnPointerClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1502507484753556414
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,6 +387,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85fe8aef628109b438bb4fd6440c9748, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clip_click: {fileID: 8300000, guid: d267264bba550264ea43044cacfb9c62, type: 3}
+  clip_mouseEnter: {fileID: 8300000, guid: e5c0b5435124eee4a9bab0e4dc5c16b7, type: 3}
   btnAcpt: {fileID: 7601864957878688838}
   btnEntregar: {fileID: 1418719778892473988}
   itensListParent: {fileID: 2772713602075453566}
@@ -850,6 +898,7 @@ GameObject:
   - component: {fileID: 7096519301650628049}
   - component: {fileID: 5852409013207912693}
   - component: {fileID: 5007535590972260957}
+  - component: {fileID: 38073710281596498}
   m_Layer: 5
   m_Name: Button_aceitar
   m_TagString: Untagged
@@ -971,6 +1020,51 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &38073710281596498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601864957878688838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3498561619305540366}
+          m_TargetAssemblyTypeName: QuestCard, Assembly-CSharp
+          m_MethodName: OnPointerEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3498561619305540366}
+          m_TargetAssemblyTypeName: QuestCard, Assembly-CSharp
+          m_MethodName: OnPointerClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &7969406463196262905
 GameObject:
   m_ObjectHideFlags: 0

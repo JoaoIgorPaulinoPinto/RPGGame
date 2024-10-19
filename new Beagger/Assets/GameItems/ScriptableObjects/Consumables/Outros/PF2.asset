@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d33d8de5f330348a314b7b62394642, type: 3}
+  m_Name: PF2
+  m_EditorClassIdentifier: 
+  origin: Restaurante
+  weight: 1
+  itemType: 1
+  rarityLevel: 0
+  condition: 100
+  itemName: Prato feito.
+  description: Use para saciar sua fome.
+  icon: {fileID: 5965717327922571411, guid: f81cc83a4865d0848ae50db313c85636, type: 3}
+  prefab: {fileID: 6935112757027500645, guid: 6ca4250ae4e38cf4e8e8eec595c9669f, type: 3}
+  InHandItemprefab: {fileID: 6935112757027500645, guid: 6ca4250ae4e38cf4e8e8eec595c9669f, type: 3}
+  efectPower: 100
+  time: 10
+  type: 0

@@ -11,6 +11,9 @@ public class Dialog
 
 public class DialogSystem : MonoBehaviour
 {
+    [SerializeField]AudioSource audioSource;
+    [SerializeField]AudioClip clip;
+
     NPCData npc;
 
     [SerializeField] QuestsData qstData;
@@ -29,7 +32,7 @@ public class DialogSystem : MonoBehaviour
 
     private int currentPageIndex = 0;
     private bool isTyping = false; 
-    private bool isDialogActive = false; 
+    public bool isDialogActive = false; 
 
 
     private void Awake()
@@ -49,7 +52,11 @@ public class DialogSystem : MonoBehaviour
     // Inicia o diálogo
     public void StartDialog()
     {
-       // btnShowQuests.SetActive(false);
+       GeneralUIManager.Instance.animator.SetBool("DialogCanvas", true);
+
+
+
+        // btnShowQuests.SetActive(false);
         questsUI.SetActive(false);
 
         isDialogActive = true;
@@ -64,11 +71,14 @@ public class DialogSystem : MonoBehaviour
     // Função para digitar o texto gradualmente
     private IEnumerator TypeText(string text)
     {
+        
         isTyping = true;
         lbl_text.text = ""; 
 
         foreach (char letter in text.ToCharArray())
         {
+            audioSource.clip = clip;
+            audioSource.Play();
             lbl_text.text += letter; 
             yield return new WaitForSeconds(typingSpeed);
         }
@@ -122,17 +132,20 @@ public class DialogSystem : MonoBehaviour
         qstData = null;
         npc = null;
         isDialogActive = false;
-        UI.SetActive(false);
-        lbl_text.text = ""; 
+       
+        GeneralUIManager.Instance.animator.SetBool("DialogCanvas", false);
         Debug.Log("Dialog ended."); 
 
         yield return new WaitForSeconds(0.3f);
+        UI.SetActive(false);
+        lbl_text.text = "";
         PlayerControlsManager.Instance.realease = true;
+        
     }
 
     public void EndDialog()
     {
-
+        isDialogActive =false;
         StartCoroutine(EndDialogCoroutine());
     }
     public void SetData(Dialog data, NPCData npcData, QuestsData? questData)
@@ -150,6 +163,7 @@ public class DialogSystem : MonoBehaviour
     public void ShowQuests()
     {
         questsUI.SetActive(true);
+        isDialogActive = false;
         if(qstData != null)
         {
             QuestSystem.Instance.StartUI(qstData, npc);
@@ -160,16 +174,19 @@ public class DialogSystem : MonoBehaviour
 
     private void Update()
     {
-        if (isDialogActive && Input.GetKeyDown(KeyCode.E))
+        if (isDialogActive)
         {
-            if (currentPageIndex == dialogInfo.pages.Length - 1)
-            {
-                EndDialog();
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Space)){
+                if (currentPageIndex == dialogInfo.pages.Length - 1)
+                {
+                    EndDialog();
+                }
+                else
+                {
+                    NextPage();
+                }
             }
-            else
-            {
-                NextPage();
-            }
+          
         }
     }
 }

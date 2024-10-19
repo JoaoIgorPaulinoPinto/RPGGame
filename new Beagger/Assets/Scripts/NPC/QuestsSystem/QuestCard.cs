@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class QuestCard : MonoBehaviour
 {
+    [SerializeField] AudioClip clip_click;
+    [SerializeField] AudioClip clip_mouseEnter;
+
     [SerializeField] GameObject btnAcpt;
     [SerializeField] GameObject btnEntregar;
 
@@ -59,5 +62,15 @@ public class QuestCard : MonoBehaviour
         {
             UpdateButtons(); // Atualiza os botões após entregar a missão
         }
+    }
+    public void OnPointerEnter()
+    {
+        GeneralReferences.Instance.UIAudioSource.clip = clip_mouseEnter;
+        GeneralReferences.Instance.UIAudioSource.Play();
+    }
+    public void OnPointerClick()
+    {
+        GeneralReferences.Instance.UIAudioSource.clip = clip_click;
+        GeneralReferences.Instance.UIAudioSource.Play();
     }
 }

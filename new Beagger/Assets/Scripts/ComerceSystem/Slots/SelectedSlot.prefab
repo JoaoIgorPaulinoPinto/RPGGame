@@ -27,7 +27,7 @@ RectTransform:
   m_GameObject: {fileID: 464573662005042458}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.77902, y: 0.77902, z: 0.77902}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3608583771151034583}
@@ -65,9 +65,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 5901419188706571846, guid: e57655264d9861a469dfa7fbcfc70798, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 2562568413745127952}
   - component: {fileID: 4047798346367871811}
   - component: {fileID: 9118550821704683210}
+  - component: {fileID: 5747137183884077954}
   m_Layer: 0
   m_Name: SelectedSlot
   m_TagString: Untagged
@@ -223,6 +224,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed5530b0b7f62e846bd267d547b01159, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointerEnter: {fileID: 8300000, guid: e5c0b5435124eee4a9bab0e4dc5c16b7, type: 3}
+  pointerClick: {fileID: 8300000, guid: 3fbec5a8ff835b34098436a9a752f675, type: 3}
   product:
     item: {fileID: 0}
     price: 0
@@ -231,6 +234,51 @@ MonoBehaviour:
   lblItemName: {fileID: 7022020852263154721}
   lblItemPrice: {fileID: 8909631263206033007}
   iconRender: {fileID: 3587227751817408712}
+--- !u!114 &5747137183884077954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4323179638050647907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9118550821704683210}
+          m_TargetAssemblyTypeName: PurchaseSystemProductSlot, Assembly-CSharp
+          m_MethodName: OnPointerEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 9118550821704683210}
+          m_TargetAssemblyTypeName: PurchaseSystemProductSlot, Assembly-CSharp
+          m_MethodName: OnPointerClick
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5306992748030816485
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,19 +6,27 @@ using UnityEngine.UI;
 
 public class InventorySlotsMovimentation : MonoBehaviour
 {
-
+    [SerializeField] AudioClip sfx_pointerEnter;
+    [SerializeField] AudioClip sfx_pointerClick;
+    [SerializeField] AudioClip sfx_dropItem;
+   // [SerializeField] AudioClip sfx_drag;
+    [SerializeField] AudioClip sfx_drop ;
+    
     [SerializeField] Sprite selectedSlotSprite;
     [SerializeField] Sprite NselectedSpriteSlot;
     [SerializeField] InventoryUIManager inventoryUIManager;
     [SerializeField] ItemExpUIManager exp;
-
+    [SerializeField] InventoryToolsBarManager invToolsBarManager;
 
     public GameObject mouseSlot;
     public GameObject selectedSlot;
 
-
+    AudioSource ad;
     public void SelectSlot(GameObject button)
     {
+        ad.clip = sfx_pointerClick;
+        ad.Play();
+        selectedSlot = button;
         selectedSlot = null;
 
             if (button.TryGetComponent<InventorySlot>(out InventorySlot selectedSlotComponent))
@@ -60,14 +68,24 @@ public class InventorySlotsMovimentation : MonoBehaviour
         }
 
     }
+    public void OnPointerEnter()
+    {
+        ad.clip = sfx_pointerEnter;
+        ad.Play();
+    }
     public void DragItem(GameObject button)
     {
+
         selectedSlot = button;
         mouseSlot = button;
         mouseSlot.transform.position = Input.mousePosition;
+        invToolsBarManager.UpdateToolsBarData();
     }
     public void DropItem(GameObject button)
     {
+        ad.clip = sfx_drop;
+        ad.Play();
+        invToolsBarManager.UpdateToolsBarData();
         Transform aux = null;
 
         InventorySlot MS; mouseSlot.TryGetComponent<InventorySlot>(out MS);
@@ -153,33 +171,96 @@ public class InventorySlotsMovimentation : MonoBehaviour
     }
     public void DropOut()
     {
-        if(mouseSlot != null)
+        // Verificação para mouseSlot
+        if (mouseSlot != null)
         {
-            InventorySlot item;
-            mouseSlot.TryGetComponent<InventorySlot>(out item);
-            ItemsManager.Instance.DropItem(item.cellItem, 1);
-            Inventory.Instance.RemoveItem(item.cellItem, item);
+            Debug.Log("mouseSlot está presente");
 
-        }
-        else if(selectedSlot)
-        {
-            InventorySlot item;
-            selectedSlot.TryGetComponent<InventorySlot>(out item);
-            ItemsManager.Instance.DropItem(item.cellItem, 1);
-            Inventory.Instance.RemoveItem(item.cellItem, item);
-            if (Inventory.Instance.SearchItem(item.cellItem) != null)
+            // Tenta pegar o componente InventorySlot
+            if (mouseSlot.TryGetComponent<InventorySlot>(out InventorySlot item))
             {
+                Debug.Log("InventorySlot encontrado no mouseSlot");
 
+                // Chama o método DropItem e RemoveItem
+                ItemsManager.Instance.DropItem(item.cellItem, 1, PlayerStts.Instance.playerBody);
+                Inventory.Instance.RemoveItem(item.cellItem, item);
             }
             else
             {
-            
-                selectedSlot = null;
-                StartSlotsSprite();
-                exp.gameObject.SetActive(false);    
+                Debug.LogError("InventorySlot não encontrado no mouseSlot");
             }
         }
+        // Verificação para selectedSlot
+        else if (selectedSlot != null)
+        {
+            Debug.Log("selectedSlot está presente");
+     
+
+            // Tenta pegar o componente InventorySlot
+            if (selectedSlot.TryGetComponent<InventorySlot>(out InventorySlot item))
+            {
+                Debug.Log("InventorySlot encontrado no selectedSlot");
+
+                // Chama o método DropItem e RemoveItem
+                ItemsManager.Instance.DropItem(item.cellItem, 1, PlayerStts.Instance.playerBody);
+                Inventory.Instance.RemoveItem(item.cellItem, item);
+
+                // Verifica se o item ainda existe no inventário
+                if (Inventory.Instance.SearchItem(item.cellItem) != null)
+                {
+                    Debug.Log("Item ainda presente no inventário");
+                }
+                else
+                {
+                    Debug.Log("Item não encontrado no inventário, limpando selectedSlot");
+                    selectedSlot = null;
+
+                    // Reinicia sprites dos slots
+                    StartSlotsSprite();
+
+                    // Desativa o objeto exp
+                    if (exp != null)
+                    {
+                        exp.gameObject.SetActive(false);
+                        Debug.Log("exp desativado");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("exp não foi atribuído!");
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogError("InventorySlot não encontrado no selectedSlot");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Nem mouseSlot nem selectedSlot estão presentes");
+        }
+
+        // Verifica se o áudio está configurado corretamente antes de tocar
+        if (ad != null)
+        {
+            ad.clip = sfx_dropItem;
+
+            if (ad.clip != null)
+            {
+                ad.Play();
+                Debug.Log("Som de dropItem tocado");
+            }
+            else
+            {
+                Debug.LogError("sfx_dropItem não atribuído ao AudioSource");
+            }
+        }
+        else
+        {
+            Debug.LogError("AudioSource 'ad' não atribuído");
+        }
     }
+
     public void UpdateSlotsParentSprite(Transform button)
     {
         foreach (var slot in Inventory.Instance.UIManager.slots)
@@ -231,5 +312,9 @@ public class InventorySlotsMovimentation : MonoBehaviour
             i.isSelected = false;
             slot.GetComponent<Image>().sprite = NselectedSpriteSlot;
          }   
+    }
+    private void Start()
+    {
+        ad = GeneralReferences.Instance.UIAudioSource;
     }
 }

@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public enum ControlType
 {
@@ -8,10 +10,13 @@ public enum ControlType
 
 public class PlayerMovementation : MonoBehaviour
 {
+
+
+    [SerializeField] ParticleSystem walkParticle;
     public bool canMove;
 
     [SerializeField] private ControlType controlType;
-    [SerializeField] private Animator animatorController;
+    [SerializeField] public Animator animatorController;
     [SerializeField] private float moveSpeed = 5f;
 
     private Rigidbody2D rb;
@@ -28,7 +33,23 @@ public class PlayerMovementation : MonoBehaviour
 
     void FixedUpdate()
     {
+        //  Particle();
         Move();
+        if (EquipedItemsManager.Instance.prefab)
+        {
+            EquipedItemsManager.Instance.prefab.TryGetComponent<SpriteRenderer>(out SpriteRenderer spRender);
+
+            if (Direction.y > 0)
+            {
+
+                spRender.sortingOrder = 2;
+            }
+            else
+            {
+                spRender.sortingOrder = 3;
+            }
+        }
+
     }
 
     void Move()
@@ -44,19 +65,38 @@ public class PlayerMovementation : MonoBehaviour
             rb.velocity = movement * moveSpeed;
 
 
-            if (AimSystem.Instance.VerifyRotation() != Vector2.zero)    
+            if (AimSystem.Instance.VerifyRotation() != Vector2.zero)
             {
                 lastDirection = AimSystem.Instance.VerifyRotation();
 
-                /*  
-                    animatorController.SetFloat("X", X);
-                    animatorController.SetFloat("Y", Y);
-                */
+
+                animatorController.SetFloat("X", X);
+                animatorController.SetFloat("Y", Y);
+
             }
         }
         else
         {
-           //rb.velocity = Vector2.zero;
+            //rb.velocity = Vector2.zero;
         }
-    }
+    }/*
+    void Particle()
+    {
+        // Verifica se há movimento nos eixos X ou Y
+        if (Mathf.Abs(movement.x) > 0.1f || Mathf.Abs(movement.y) > 0.1f)
+        {
+            if (!walkParticle.isPlaying)
+            {
+                walkParticle.Play();  // Inicia a fumaça
+            }
+        }
+        else
+        {
+            if (walkParticle.isPlaying)
+            {
+                walkParticle.Stop();  // Para a fumaça quando o jogador para
+            }
+        }
+    }*/
+
 }

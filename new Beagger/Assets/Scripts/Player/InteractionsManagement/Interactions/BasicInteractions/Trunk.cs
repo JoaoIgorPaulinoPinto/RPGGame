@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Trunk : InteractableGameObject, IInteractable
 {
+    public TrunkSystem trunk;
+    public float maxWeight;
+    public List<TrunkItems> items;
     public void Interact()
-    {
-        print("Bau aberto");
+    {  
+        trunk.Use(maxWeight,items, gameObject);
     }
+
 }

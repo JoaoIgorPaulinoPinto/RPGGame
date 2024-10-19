@@ -12,22 +12,22 @@ public class InventoryToolsBarManager : MonoBehaviour
     }
 
     public List<SLOT> slots;
-
+   
     public void UpdateToolsBarData()
     {
         foreach (var slot in slots)
         {
-            InventorySlot i;
-            slot.inventorySlot.GetChild(0).TryGetComponent<InventorySlot>(out i);
-            ToolsBarSlot o;
-            slot.gameHUDSlot.TryGetComponent<ToolsBarSlot>(out o);
+           
+            slot.inventorySlot.GetChild(0).TryGetComponent<InventorySlot>(out InventorySlot i);
+     
+            slot.gameHUDSlot.TryGetComponent<ToolsBarSlot>(out ToolsBarSlot o);
             if (i != null && o != null)
             {
-                if (i.cellItem)
+                if (i.cellItem && o.item != i.cellItem)
                 {
                     o.SetSlotItem(Inventory.Instance.SearchItem(i.cellItem));
                 }
-                else
+                else if(o.item != i.cellItem)
                 {
                  
                     o.ClearSlot();
@@ -39,5 +39,22 @@ public class InventoryToolsBarManager : MonoBehaviour
     private void FixedUpdate()
     {
         UpdateToolsBarData();
+    }
+    private void Start()
+    {
+        foreach (var slot in slots)
+        {
+            slot.inventorySlot.GetChild(0).TryGetComponent<InventorySlot>(out InventorySlot i);
+
+            slot.gameHUDSlot.TryGetComponent<ToolsBarSlot>(out ToolsBarSlot o);
+            if (i != null && o != null  && i.cellItem)
+            {
+                o.SetSlotItem(Inventory.Instance.SearchItem(i.cellItem));
+            }
+            else { 
+
+                o.ClearSlot();
+            }
+        }
     }
 }

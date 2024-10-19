@@ -1,7 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static Inventory;
+using static InventoryToolsBarManager;
 
 public class InventoryUIManager : MonoBehaviour
 {
@@ -85,14 +88,22 @@ public class InventoryUIManager : MonoBehaviour
 
     public void OpenInventory()
     {
+        GeneralUIManager.Instance.animator.SetBool("Inventory", true);
         inventorySlotsMovimentation.StartSlotsSprite();
         UI.gameObject.SetActive(true);
         isOpen = true;
         inventorySlotsMovimentation.StartSlotsSprite();
+
     }
 
     public void CloseInventory()
     {
+        StartCoroutine(waitCloseInventory());
+    }
+    IEnumerator waitCloseInventory()
+    {
+        GeneralUIManager.Instance.animator.SetBool("Inventory", false);
+        yield return new WaitForSeconds(0.35f);
         isOpen = false;
         UI.gameObject.SetActive(false);
     }
@@ -116,5 +127,16 @@ public class InventoryUIManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public bool VerifyEmpSlots()
+    {
+        bool retorno = false;
+        foreach (var item in slots)
+        {
+            InventorySlot i = item.transform.GetChild(0).GetComponent<InventorySlot>();
+            if (i.cellItem != null) { retorno = true; } else retorno = false;
+        }
+        return retorno;
     }
 }
