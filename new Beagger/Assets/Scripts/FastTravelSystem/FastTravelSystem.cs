@@ -9,6 +9,9 @@ public class FastTravelSystem : InteractableGameObject, IInteractable
     [SerializeField] AudioClip trainClip;
     [SerializeField] AudioClip arrivingClip;
 
+    [SerializeField] AudioClip cantBuy;
+    [SerializeField] AudioClip buy;
+
     public Transform targetPoint;
     public float price;
     public string message;
@@ -23,11 +26,14 @@ public class FastTravelSystem : InteractableGameObject, IInteractable
     {
         if(PlayerStts.Instance.money >= price)
         {
+           
             StartCoroutine(teleportRotine());
             uiMangager.CloseUI();
+    
         }
         else
         {
+          
             uiMangager.CloseUI();
             PopUpSystem.Instance.SendMsg("Você não possui dinheiro suficiente", MessageType.Alert, null);
             Denied();
@@ -36,6 +42,9 @@ public class FastTravelSystem : InteractableGameObject, IInteractable
 
     IEnumerator teleportRotine()
     {
+        audioSource.clip = buy;
+        audioSource.Play();
+        yield return new WaitForSeconds(1);
         audioSource.clip = goingClip;
         audioSource.Play();
         GeneralUIManager.Instance.animator.SetBool("Teleporting", true);
@@ -53,6 +62,7 @@ public class FastTravelSystem : InteractableGameObject, IInteractable
     }
     public void Denied()
     {
-       //o trem vai embora
+        audioSource.clip = cantBuy;
+        audioSource.Play(); //o trem vai embora
     }
 }

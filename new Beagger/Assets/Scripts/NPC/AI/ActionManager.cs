@@ -48,11 +48,6 @@ public class ActionManager : MonoBehaviour
         {
             // Aumenta a quantidade do produto (NPC está vendendo)
             chosenProduct.quant++;
-            Debug.Log("NPC está vendendo " + chosenProduct.item.name);
-        }
-        else
-        {
-            Debug.Log("Nenhum produto disponível para venda.");
         }
     }
 

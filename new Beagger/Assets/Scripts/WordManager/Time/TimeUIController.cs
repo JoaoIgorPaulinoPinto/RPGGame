@@ -19,13 +19,16 @@ public class TimeUIController : MonoBehaviour
 
     void UpdateClockUI()
     {
-        // Calcula os minutos e segundos a partir do temporizador de dias.
-        int totalSeconds = timeController.dayTimer % timeController.dayDuration;
-        int minutes = (totalSeconds / 60) % 60;
-        int seconds = totalSeconds % 60;
+        // Calcula a hora atual do dia
+        float currentHour = (timeController.dayCount * 24f + (timeController.dayTimer / (float)timeController.dayDuration) * 24f) % 24f;
+
+        // Extrai as horas, minutos e segundos
+        int hours = Mathf.FloorToInt(currentHour);
+        int minutes = Mathf.FloorToInt((currentHour - hours) * 60);
+       
 
         // Atualiza o texto na UI com os valores atuais
-        timeText.text = $"Time: {minutes:00}:{seconds:00}";
+        timeText.text = $"Time: {hours:00}:{minutes:00}";
         dayText.text = "Day: " + timeController.dayCount.ToString();
         weekText.text = "Week: " + timeController.weekCount.ToString();
         monthText.text = "Month: " + timeController.monthCount.ToString();

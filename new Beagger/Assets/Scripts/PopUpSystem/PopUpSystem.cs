@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-//using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class PopUpSystem : MonoBehaviour
 {
     [SerializeField]AudioSource audioSource;
-    [SerializeField]AudioClip clip;
+    [SerializeField]AudioClip clipAlert;    
+    [SerializeField]AudioClip clipMessage;
+    [SerializeField]AudioClip clipInfo;
 
     public static PopUpSystem Instance { get; private set; }
 
@@ -41,13 +42,12 @@ public class PopUpSystem : MonoBehaviour
         PopUpCard card = Instantiate(prefab, parent).GetComponent<PopUpCard>();
        
         switch (type){
-            case MessageType.Alert: card.SetValues(msg,icon_alert, time); break;
-            case MessageType.Information: card.SetValues(msg, icon_info, time); break;
-            case MessageType.Message: card.SetValues(msg, icon_message, time); break;
+            case MessageType.Alert: card.SetValues(msg,icon_alert, time); audioSource.clip = clipAlert; break;
+            case MessageType.Information: card.SetValues(msg, icon_info, time); audioSource.clip = clipMessage; break;
+            case MessageType.Message: card.SetValues(msg, icon_message, time); audioSource.clip = clipInfo;  break;
         }
         card.TryGetComponent<Animator>(out Animator animator);
         //animator.SetBool("PopUp", true);
-        audioSource.clip = clip;
         audioSource.Play();
     }
 

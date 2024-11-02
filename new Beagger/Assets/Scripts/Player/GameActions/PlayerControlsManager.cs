@@ -29,10 +29,14 @@ public class PlayerControlsManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            PlayerPrefs.DeleteAll();
+
+        }
+            OpenGameMenu();
         if (realease)
         {
-
-
             Interact();
             Inventory();
             UseEquipedItem();
@@ -103,6 +107,19 @@ public class PlayerControlsManager : MonoBehaviour
             }
           
         }
-       
+    }
+    void OpenGameMenu()
+    {
+        if (Input.GetKeyDown(KeyBinding.key_menu))
+        {
+            if (GeneralReferences.Instance.GameMenuManager.isOpen)
+            {
+                GeneralReferences.Instance.GameMenuManager.BackToGame();
+            }
+            else
+            {
+                GeneralReferences.Instance.GameMenuManager.OpenGameMenu();
+            }
+        }
     }
 }

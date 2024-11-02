@@ -72,6 +72,7 @@ public class EquipedItemsManager : MonoBehaviour
                 UseItemsSystem.Instance.equipedItemAnimator = animator;
             }
         }
+        print(EquipedItem);
     }
 
 }

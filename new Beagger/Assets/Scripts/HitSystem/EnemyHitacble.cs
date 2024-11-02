@@ -1,15 +1,15 @@
 using System.Collections;
-using System.Runtime.InteropServices.ComTypes;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHitacble : HitableGameObject, IHitable
 {
-    public Color hitColor = Color.red; // Cor ao ser atingido
+
+    public Color hitColor= Color.red; // Cor ao ser atingido
+    public Slider sliderVida;
     private Color originalColor;
     private SpriteRenderer spriteRenderer;
-
-
+    
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -28,7 +28,8 @@ public class EnemyHitacble : HitableGameObject, IHitable
     public void Hited(int d, Transform i, float stanTime)
     {
         health -= d;
-       
+        
+        sliderVida.value = health;
 
         if (spriteRenderer != null)
         {

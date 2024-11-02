@@ -12,7 +12,9 @@ public class GeneralReferences : MonoBehaviour
     public InteractionsCapter InteractionCapter;
     public PlayerMovementation PlayerMovementation;
     public DialogSystem DialogSystem;
-
+    public AudioSource PlayerAudioSource;
+    public GameMenuManager GameMenuManager;
+    public DethScreenManager DethScreenManager;
     public static GeneralReferences Instance {  get; private set; }
 
     private void Awake()

@@ -52,9 +52,7 @@ public class DialogSystem : MonoBehaviour
     // Inicia o diálogo
     public void StartDialog()
     {
-       GeneralUIManager.Instance.animator.SetBool("DialogCanvas", true);
-
-
+        GeneralUIManager.Instance.animator.SetBool("DialogCanvas", true);
 
         // btnShowQuests.SetActive(false);
         questsUI.SetActive(false);
@@ -162,14 +160,16 @@ public class DialogSystem : MonoBehaviour
 
     public void ShowQuests()
     {
-        questsUI.SetActive(true);
-        isDialogActive = false;
-        if(qstData != null)
+        if (qstData != null && npc != null)
         {
+            questsUI.SetActive(true);
+            isDialogActive = false;
             QuestSystem.Instance.StartUI(qstData, npc);
         }
-     
-      
+        else
+        {
+            Debug.LogWarning("Quest data or NPC data is missing!");
+        }
     }
 
     private void Update()

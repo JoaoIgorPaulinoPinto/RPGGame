@@ -9,20 +9,14 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] concreteFootstepClips; // Sons de passos no concreto
     public AudioClip[] dirtFootstepClips; // Sons de passos na terra
 
-    private AudioSource audioSource;
+    [SerializeField] AudioSource audioSource;
 
     [Header("Ground Layer Masks")]
     public LayerMask groundGlassLayer;
     public LayerMask groundConcreteLayer;
     public LayerMask groundDirtLayer;
 
-    private Transform playerTransform; // Transform do jogador para verificar o chão
-
-    void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform; // Atribui o transform do player (certifique-se que o player tem a tag "Player")
-    }
+    [SerializeField] Transform playerTransform; // Transform do jogador para verificar o chão
 
     // Método para tocar sons de passos, chamado pelo evento de animação
     public void PlayFootstepSound()

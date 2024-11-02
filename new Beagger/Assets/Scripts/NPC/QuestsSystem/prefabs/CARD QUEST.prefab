@@ -399,11 +399,10 @@ MonoBehaviour:
     questType: 0
     questName: 
     description: 
-    necessaryItens: []
-    deliveredItens: []
+    necessaryItems: []
     reward: 0
     time: 0
-    acepted: 0
+    accepted: 0
     completed: 0
 --- !u!1 &1669419215897645164
 GameObject:
@@ -548,8 +547,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ACEITAR
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4b9007d77b79bd14ca7d55252955d4d4, type: 2}
+  m_sharedMaterial: {fileID: 8466635459745746690, guid: 4b9007d77b79bd14ca7d55252955d4d4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -684,7 +683,7 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4b9007d77b79bd14ca7d55252955d4d4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -748,7 +747,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7428666549934673156
@@ -819,8 +818,8 @@ MonoBehaviour:
   m_text: "Aqui vai a descri\xE7\xE3o da miss\xE3o que naverdade \xE9 uma descri\xE7\xE3o
     padrao para todas missoes do mesmo tipo."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4b9007d77b79bd14ca7d55252955d4d4, type: 2}
+  m_sharedMaterial: {fileID: 8466635459745746690, guid: 4b9007d77b79bd14ca7d55252955d4d4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -844,10 +843,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 14.08
+  m_fontSize: 11.5
+  m_fontSizeBase: 11.5
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -1208,8 +1207,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'RECONPENSA: R$100,00'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4b9007d77b79bd14ca7d55252955d4d4, type: 2}
+  m_sharedMaterial: {fileID: 8466635459745746690, guid: 4b9007d77b79bd14ca7d55252955d4d4, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1233,7 +1232,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.05
+  m_fontSize: 21.3
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1

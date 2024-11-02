@@ -40,7 +40,7 @@ public class ToolsBarSlot : MonoBehaviour
         isSelected = false;
     }
 
-    public void SetSlotItem(InventoryItems  slot)
+    public void SetSlotItem(InventoryItems slot)
     {
         this.item = slot.item;
         spriteRender.sprite = slot.item.icon;

@@ -7,6 +7,14 @@ public class PurchaseSystemUIManager : MonoBehaviour
 
     [Space]
 
+    public AudioSource audioSource;
+    [SerializeField] AudioClip addToCart;
+    [SerializeField] AudioClip RemoveFromCart;
+    [SerializeField] AudioClip Finalize;
+    [SerializeField] AudioClip Cancel;
+
+    [Space]
+
     [SerializeField] TextMeshProUGUI lbl_TotalValue;
     [SerializeField] TextMeshProUGUI lbl_ClientName;
     [SerializeField] TextMeshProUGUI lbl_ComerciantName;
@@ -59,22 +67,29 @@ public class PurchaseSystemUIManager : MonoBehaviour
     {
         purchaseSystem.selectedProducts.Remove(product);
         UpdateUI();
+        PlaySound(RemoveFromCart);
+
     }
     public void AddProduct(Product product)
     {
         purchaseSystem.selectedProducts.Add(product);
         UpdateUI();
         print(product.item.itemName + " ADICIONADO AO CARRINHO");
+        PlaySound(addToCart);
+
     }
     public void PurchaseComplete()
     {
         purchaseSystem.PurchaseCompleted();
         UpdateUI();
+        PlaySound(Finalize);
+
     }
     public void PurchaseCanceled()
     {
         purchaseSystem.PurchaseCanceled();
         UpdateUI();
+        PlaySound(Cancel);
     }
     public void UpdateDetailsScreen()
     {
@@ -87,11 +102,16 @@ public class PurchaseSystemUIManager : MonoBehaviour
             lbl_TotalValue.color = Color.green;
 
         }
-        lbl_playerMoney.text = "R$ " + PlayerStts.Instance.money.ToString();
-        lbl_TotalValue.text = "R$ " + purchaseSystem.totalValue.ToString();
+        lbl_playerMoney.text = "R$ " + PlayerStts.Instance.money.ToString("00.00");
+        lbl_TotalValue.text = "R$ " + purchaseSystem.totalValue.ToString("00.00");
         lbl_ClientName.text = PlayerStts.Instance.playerName;
         lbl_ComerciantName.text = purchaseSystem.Store.SellerName;
         lbl_storeType.text = purchaseSystem.Store.StoreType.ToString();
-        lbl_Quantity.text = purchaseSystem.selectedProducts.Count.ToString();
+        lbl_Quantity.text = purchaseSystem.selectedProducts.Count.ToString("00.00");
+    }
+    void PlaySound(AudioClip clip)
+    {
+        audioSource.clip = clip;
+        audioSource.Play();
     }
 }

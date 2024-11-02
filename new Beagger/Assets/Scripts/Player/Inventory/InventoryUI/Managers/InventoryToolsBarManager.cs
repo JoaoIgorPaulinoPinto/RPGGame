@@ -23,9 +23,18 @@ public class InventoryToolsBarManager : MonoBehaviour
             slot.gameHUDSlot.TryGetComponent<ToolsBarSlot>(out ToolsBarSlot o);
             if (i != null && o != null)
             {
-                if (i.cellItem && o.item != i.cellItem)
+                if (i.cellItem )
                 {
-                    o.SetSlotItem(Inventory.Instance.SearchItem(i.cellItem));
+                    if(o.item != i.cellItem)
+                    {
+                        o.SetSlotItem(Inventory.Instance.SearchItem(i.cellItem));
+
+                    }
+                    else
+                    {
+                        o.SetSlotItem(Inventory.Instance.SearchItem(i.cellItem));
+
+                    }
                 }
                 else if(o.item != i.cellItem)
                 {
@@ -38,7 +47,6 @@ public class InventoryToolsBarManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UpdateToolsBarData();
     }
     private void Start()
     {

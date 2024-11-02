@@ -22,8 +22,17 @@ public class ItemsManager : MonoBehaviour
     {
         for (int i = 0; i < quant; i++)
         {
-            Vector2 pos = new Vector2(dropPosition.position.x + Random.Range(-0.8f, 0.8f), dropPosition.position.y + Random.Range(-0.8f, 0.8f));
-            GameObject dropedItem = Instantiate(item.prefab, pos, Quaternion.identity);
+            Vector2 pos;
+            do
+            {
+                // Gera uma posição aleatória com um offset entre -0.8 e 0.8
+                pos = new Vector2(dropPosition.position.x + Random.Range(-0.8f, 0.8f),
+                                  dropPosition.position.y + Random.Range(-0.8f, 0.8f));
+            }
+            while (Mathf.Abs(pos.x - dropPosition.position.x) < 0.3f || Mathf.Abs(pos.y - dropPosition.position.y) < 0.3f);
+
+            // Instancia o item na posição final válida
+            GameObject droppedItem = Instantiate(item.prefab, pos, Quaternion.identity);
         }
     }/*
     public void TakeItem(Transform collision)

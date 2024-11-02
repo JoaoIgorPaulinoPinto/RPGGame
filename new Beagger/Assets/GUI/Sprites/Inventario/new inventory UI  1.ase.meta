@@ -482,6 +482,26 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
+  - name: new inventory UI  1_17
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 240
+      y: 195
+      width: 44
+      height: 15
+    spriteID: 27ea90c9ac388ac4b963f6e0b2521521
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
     guid: -1016120489
@@ -496,7 +516,7 @@ ScriptedImporter:
       cellRect:
         x: 7
         y: 15
-        width: 270
+        width: 280
         height: 280
       spriteId: ec365a13d9ef66a46a218eb8561815be
     linkedCells: []

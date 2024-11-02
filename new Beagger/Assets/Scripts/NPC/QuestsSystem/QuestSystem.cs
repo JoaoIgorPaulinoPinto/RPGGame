@@ -1,7 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+
+[System.Serializable]
+public class QuestItem
+{
+    public ItemData item;
+
+    public QuestItem(ItemData item)
+    {
+        this.item = item;
+    }
+}
 
 [System.Serializable]
 public class Quest
@@ -9,199 +19,119 @@ public class Quest
     public QuestType questType;
     public string questName;
     public string description;
-    public List<ItemData> necessaryItens;
-    public List<ItemData> deliveredItens;
+    public List<QuestItem> necessaryItems;
     public int reward;
     public int time;
 
-    public bool acepted;
+    public bool accepted;
     public bool completed;
 }
 
 public class QuestSystem : MonoBehaviour
 {
-    // Singleton instance
-    private static QuestSystem _instance;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip accept;
+    [SerializeField] private AudioClip cantAccept;
+    [SerializeField] private AudioClip cantFinalize;
+    [SerializeField] private AudioClip finalize;
 
-    public static QuestSystem Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<QuestSystem>();
-
-                if (_instance == null)
-                {
-                    GameObject singletonObject = new GameObject();
-                    _instance = singletonObject.AddComponent<QuestSystem>();
-                    singletonObject.name = typeof(QuestSystem).ToString() + " (Singleton)";
-                }
-            }
-            return _instance;
-        }
-    }
+    public static QuestSystem Instance;
 
     private void Awake()
     {
-        if (_instance != null && _instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
         }
         else
         {
-            _instance = this;
-            DontDestroyOnLoad(gameObject); // Optionally, keep the singleton persistent between scenes
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
     public QuestSystemUIManager UI;
-    public Quest quest;
+    public List<Quest> activeQuests = new List<Quest>(); // Modificado para lista de quests ativas
 
     public void StartUI(QuestsData data, NPCData npcData)
     {
-        quest = null;
-
-
+        activeQuests.Clear(); // Limpa as quests ativas ao iniciar a UI
         UI.quests = data.quest;
         UI.npcInfo = npcData;
         UI.UpdateUI();
-
     }
-    public bool QuestAccepted(Quest AcceptedQuest)
+
+    public bool QuestAccepted(Quest acceptedQuest)
     {
-        // Verifica se já há uma quest aceita
-        if (this.quest != null && this.quest.acepted)
+        if (activeQuests.Contains(acceptedQuest))
         {
-            PopUpSystem.Instance.SendMsg("Você já está em uma quest...", MessageType.Alert, 3f);
+            PopUpSystem.Instance.SendMsg("Essa quest já foi aceita.", MessageType.Alert, 3f);
             UI.UpdateUI();
+            PlaySound(cantAccept);
             return false;
         }
 
-        // Se não houver uma quest ativa, aceita a nova
-        quest = AcceptedQuest;
-        quest.acepted = true;
-        UI.QuestAccepted(AcceptedQuest);
-        StartQuest();
+        acceptedQuest.accepted = true;
+        activeQuests.Add(acceptedQuest); // Adiciona a quest à lista de quests ativas
+        UI.QuestAccepted(acceptedQuest);
         PopUpSystem.Instance.SendMsg("Quest Aceita!", MessageType.Message, 3f);
         UI.UpdateUI();
+        PlaySound(accept);
         return true;
     }
 
-
-    void StartQuest()
+    public bool Deliver(Quest selectedQuest)
     {
-        float time = 0;
-        time += Time.deltaTime;
+        // Lista temporária para armazenar itens que serão removidos do inventário
+        List<QuestItem> tempRemovedItems = new List<QuestItem>();
 
-        if (time > UI.selectedQuest.time)
+        // Verifica se o inventário possui todos os itens necessários para a quest selecionada
+        if (!CheckAndRemoveItems(selectedQuest, tempRemovedItems))
         {
-            PopUpSystem.Instance.SendMsg("O tempo para a quest acabou", MessageType.Alert, 3f);
-            UI.selectedQuest.acepted = false;
-            UI.selectedQuest.deliveredItens.Clear();
-            UI.selectedQuest.completed = false;
-            UI.selectedQuest = null;
-        }
-    }
-    public bool Deliver()
-    {
-        // Verifica se a quest é nula
-        if (UI.selectedQuest == null)
-        {
-            PopUpSystem.Instance.SendMsg("Não há quest ativa para entregar itens.", MessageType.Alert, 3f);
-            return false;
-        }
-
-        // Verifica se o inventário está inicializado
-        if (Inventory.Instance == null || Inventory.Instance.inventory == null)
-        {
-            PopUpSystem.Instance.SendMsg("Inventário não está disponível.", MessageType.Alert, 3f);
-            return false;
-        }
-
-        // Checa se os itens necessários estão inicializados
-        if (UI.selectedQuest.necessaryItens == null)
-        {
-            PopUpSystem.Instance.SendMsg("Itens necessários não estão definidos.", MessageType.Alert, 3f);
-            return false;
-        }
-
-        // Inicializa a lista de entregas se estiver nula
-        if (UI.selectedQuest.deliveredItens == null)
-        {
-            UI.selectedQuest.deliveredItens = new List<ItemData>();
-        }
-
-        // Restante do código
-        foreach (var inventoryItem in Inventory.Instance.inventory)
-        {
-            // Verifica se o item do inventário não é nulo
-            if (inventoryItem == null || inventoryItem.item == null)
-                continue; // Ignora itens nulos
-
-            foreach (var questItem in UI.selectedQuest.necessaryItens)
+            // Se faltar algum item, devolve os itens ao inventário
+            foreach (var item in tempRemovedItems)
             {
-                // Verifica se o item da quest não é nulo
-                if (questItem == null)
-                    continue; // Ignora itens nulos
+                Inventory.Instance.AddItem(item.item);
+            }
 
-                // Compara os nomes dos itens
-                if (questItem.itemName == inventoryItem.item.itemName)
-                {
-                    // Adiciona o item à lista de entregas se não estiver já na lista
-                    if (!UI.selectedQuest.deliveredItens.Contains(questItem))
-                    {
-                        UI.selectedQuest.deliveredItens.Add(questItem);
-                    }
-                }
+            PopUpSystem.Instance.SendMsg("Você não tem todos os itens necessários ainda", MessageType.Alert, 3f);
+            PlaySound(cantFinalize);
+            return false;
+        }
+
+        // Finaliza a quest e recompensa o jogador
+        PlayerStts.Instance.money += selectedQuest.reward;
+        selectedQuest.accepted = false;
+        selectedQuest.completed = true;
+        activeQuests.Remove(selectedQuest); // Remove a quest da lista de quests ativas
+        UI.UpdateUI();
+        PopUpSystem.Instance.SendMsg("Quest finalizada com sucesso", MessageType.Message, 3f);
+        PlaySound(finalize);
+        return true;
+    }
+
+    bool CheckAndRemoveItems(Quest selectedQuest, List<QuestItem> tempRemovedItems)
+    {
+        foreach (var requiredItem in selectedQuest.necessaryItems)
+        {
+            if (Inventory.Instance.inventory.Contains(Inventory.Instance.SearchItem(requiredItem.item)))
+            {
+                // Adiciona o item à lista temporária e remove do inventário
+                tempRemovedItems.Add(new QuestItem(requiredItem.item));
+                Inventory.Instance.RemoveItem(requiredItem.item, null);
+            }
+            else
+            {
+                return false; // Faltou um item, então não pode finalizar a quest
             }
         }
 
-        // Verifica se todos os itens necessários foram entregues
-        if (!Check())
-        {
-            PopUpSystem.Instance.SendMsg("Você não tem todos itens necessários ainda", MessageType.Alert, 3f);
-            return false;
-        }
-        else
-        {
-            foreach (var item in UI.selectedQuest.deliveredItens)
-            {
-                Inventory.Instance.RemoveItem(item, null);
-            }
-            // Finaliza a quest e dá recompensa
-            PlayerStts.Instance.money += UI.selectedQuest.reward;
-            UI.selectedQuest.acepted = false;
-            UI.selectedQuest.deliveredItens.Clear();
-            quest.completed = true;
-            UI.selectedQuest = null;
-            UI.UpdateUI();
-            PopUpSystem.Instance.SendMsg("Quest finalizada com sucesso", MessageType.Message, 3f);
-
-      
-            return true;
-        }
+        return true; // Todos os itens necessários estão presentes
     }
-    bool Check()
+
+    void PlaySound(AudioClip clip)
     {
-        // Verifica se há uma quest selecionada e se ela foi aceita
-        if (UI.selectedQuest == null || !UI.selectedQuest.acepted)
-        {
-            return false; // Retorna falso se não há quest selecionada ou não foi aceita
-        }
-
-        // Verifica se os itens necessários estão inicializados
-        if (UI.selectedQuest.necessaryItens == null || UI.selectedQuest.deliveredItens == null)
-        {
-            return false; // Retorna falso se as listas de itens estão nulas
-        }
-
-        // Verifica se todos os itens necessários foram entregues
-        bool allItemsDelivered = UI.selectedQuest.necessaryItens.All(item =>
-            item != null && UI.selectedQuest.deliveredItens.Contains(item));
-
-        return allItemsDelivered; // Retorna o resultado da verificação
+        audioSource.clip = clip;
+        audioSource.Play();
     }
-
-
 }

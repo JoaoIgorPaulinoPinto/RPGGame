@@ -13,7 +13,7 @@ public class FastTravelUIManager : MonoBehaviour
     public void StartUI(float price, string message)
     {
         lbl_msg.text = message;
-        lbl_price.text = price.ToString();
+        lbl_price.text = "Preço: " + price.ToString("C2");
         UI.SetActive(true);
         GeneralUIManager.Instance.animator.SetBool("FastTravel", true);
         PlayerControlsManager.Instance.realease = false;

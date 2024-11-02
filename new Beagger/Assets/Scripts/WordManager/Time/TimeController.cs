@@ -1,21 +1,19 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.UI; // Adicione isso para trabalhar com UI
 
 public class TimeController : MonoBehaviour
 {
+    [SerializeField] private Light2D sun; // Referência à luz
+    [SerializeField] private float sunsetStartHour = 20f; // Hora de início do pôr do sol (20:00)
+    [SerializeField] private float sunriseStartHour = 6f; // Hora de início do nascer do sol (6:00)
+
     public static TimeController Instance { get; private set; }
 
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject); // Destrói a nova instância se outra já existir
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI clockText; // Referência ao texto do relógio na UI
 
     [Header("Timer")]
     [Range(0f, 100f)]
@@ -25,7 +23,7 @@ public class TimeController : MonoBehaviour
     [Space]
     [Header("Day Count")]
     public int dayCount = 0;
-    public int dayDuration = 86400; // Duration of a day in seconds (24 hours * 60 minutes * 60 seconds)
+    public int dayDuration; // Duration of a day in seconds (24 hours * 60 minutes * 60 seconds)
     public int dayTimer = 0;
 
     [Space]
@@ -52,6 +50,18 @@ public class TimeController : MonoBehaviour
     public event Action OnMonthPassed;
     public event Action OnYearPassed;
 
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Destrói a nova instância se outra já existir
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     void Start()
     {
         // Initialize lastTime to the current time
@@ -61,6 +71,8 @@ public class TimeController : MonoBehaviour
     void Update()
     {
         Cont();
+      //  UpdateLightIntensity();
+        UpdateClockUI(); // Atualiza a UI do relógio
     }
 
     void Cont()
@@ -89,7 +101,8 @@ public class TimeController : MonoBehaviour
     {
         if (dayTimer >= dayDuration)
         {
-            dayCount++; monthTimer++;
+            dayCount++;
+            monthTimer++;
             dayTimer = 0; // Reset day timer
 
             WeekCount();
@@ -135,5 +148,43 @@ public class TimeController : MonoBehaviour
             // Dispara o evento quando um ano termina
             OnYearPassed?.Invoke();
         }
+    }
+
+    private void UpdateLightIntensity()
+    {
+        // Calcula a hora atual do dia
+        float currentHour = (dayCount * 24f + (dayTimer / (float)dayDuration) * 24f) % 24f;
+
+        // Inicializa a intensidade da luz
+        if (currentHour >= sunsetStartHour || currentHour < sunriseStartHour)
+        {
+            // Transição para o pôr do sol (20:00 a 6:00)
+            if (currentHour >= sunsetStartHour && currentHour < 24f) // Pôr do sol
+            {
+                float sunsetProgress = (currentHour - sunsetStartHour) / (24f - sunsetStartHour); // Progresso do pôr do sol
+                sun.intensity = Mathf.Lerp(1f, 0f, sunsetProgress); // Diminui a intensidade da luz
+            }
+            else // Nascer do sol
+            {
+                float sunriseProgress = (currentHour + 24f - sunriseStartHour) / (24f + (24f - sunriseStartHour)); // Progresso do nascer do sol
+                sun.intensity = Mathf.Lerp(0f, 1f, sunriseProgress); // Aumenta a intensidade da luz
+            }
+        }
+        else
+        {
+            // Durante o dia (6:00 a 20:00), mantenha a intensidade total
+            sun.intensity = 1f;
+        }
+    }
+
+    private void UpdateClockUI()
+    {
+        // Calcula a hora atual do dia
+        float currentHour = (dayCount * 24f + (dayTimer / (float)dayDuration) * 24f) % 24f;
+        int hours = Mathf.FloorToInt(currentHour);
+        int minutes = Mathf.FloorToInt((currentHour - hours) * 60);
+
+        // Atualiza o texto do relógio na UI
+        clockText.text = string.Format("{0:D2}:{1:D2}", hours, minutes);
     }
 }

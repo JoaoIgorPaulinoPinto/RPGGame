@@ -14,6 +14,10 @@ public class InventoryItems
 }
 public class Inventory : MonoBehaviour
 {
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip addClip;
+    [SerializeField] AudioClip NaddClip;
+
 
     [SerializeField] InventoryToolsBarManager invToolsBarManager;
     public InventoryUIManager UIManager;
@@ -38,6 +42,7 @@ public class Inventory : MonoBehaviour
     }
     private void Start()
     {
+        
         limitWeight = defaultLimitWeight;
     }
 
@@ -48,38 +53,60 @@ public class Inventory : MonoBehaviour
         {
             PopUpSystem.Instance.SendMsg("Você não pode carregar mais peso...", MessageType.Alert, null);
             return false;
-        }else if (UIManager.VerifyEmpSlots())
-        {
-            PopUpSystem.Instance.SendMsg("Você não possui mais espaços no inventario", MessageType.Alert, null);
-
-            return false;
         }
-
         var existingItem = SearchItem(item);
         if (existingItem != null)
         {
             if (item.itemType == ItemType.Tool || item.itemType == ItemType.Bag || item.itemType == ItemType.Weapon)
             {
-                var newInventoryItem = new InventoryItems(item, 1);
-                inventory.Add(newInventoryItem);
-                UIManager.AddToUI(newInventoryItem);
+                if (UIManager.VerifyEmpSlots())
+                {
+                    var newInventoryItem = new InventoryItems(item, 1);
+                    inventory.Add(newInventoryItem);
+                    UIManager.AddToUI(newInventoryItem);
+
+                }
+                else
+                {
+                    PopUpSystem.Instance.SendMsg("Você não possui mais espaços no inventario", MessageType.Alert, null);
+
+                    return false;
+                }
+
+              
             }
             else
             {
                 existingItem.quant++;
                 UIManager.UpdateSlotValues(existingItem, null);
+
             }
         }
         else 
         {
-            var newInventoryItem = new InventoryItems(item, 1);
-            inventory.Add(newInventoryItem);
-            UIManager.AddToUI(newInventoryItem);
-        }
+            if (UIManager.VerifyEmpSlots())
+            {
+                var newInventoryItem = new InventoryItems(item, 1);
+                inventory.Add(newInventoryItem);
+                UIManager.AddToUI(newInventoryItem);
 
+              
+
+            }
+            else
+            {
+                PopUpSystem.Instance.SendMsg("Você não possui mais espaços no inventario", MessageType.Alert, null);
+
+                return false;
+            }
+          
+        }
+       
         RecalculateWeight(); // Recalcula o peso
         invToolsBarManager.UpdateToolsBarData();
+        PlayAudio(addClip);
         return true;
+
     }
 
     public bool RemoveItem(ItemData item, InventorySlot? slot)
@@ -128,13 +155,14 @@ public class Inventory : MonoBehaviour
         return projectedWeight <= limitWeight;
     }
 
-    private void RecalculateWeight()
+    public void RecalculateWeight()
     {
         currentWeight = 0;
         foreach (var inventoryItem in inventory)
         {
             currentWeight += inventoryItem.item.weight * inventoryItem.quant;
         }
+        UIManager.UpdateWightLabel();
     }
 
     private void Update()
@@ -148,5 +176,10 @@ public class Inventory : MonoBehaviour
                 RemoveItem(inventory[i].item, null);
             }
         }
+    }
+    void PlayAudio(AudioClip sound)
+    {
+        audioSource.clip = sound;
+        audioSource.Play();
     }
 }

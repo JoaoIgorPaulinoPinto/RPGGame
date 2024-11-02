@@ -38,13 +38,13 @@ public class ItemExpUIManager : MonoBehaviour
                 iconRender.sprite = item.icon;
                 lbl_name.text = item.itemName;
                 lbl_type.text = item.itemType.ToString();
-                lbl_weight.text = $"{item.weight.ToString()} Kg";
+                lbl_weight.text = $"{item.weight.ToString("00.00")} Kg";
                 lbl_rarity.text = item.rarityLevel.ToString();
                 lbl_origin.text = item.origin;
                 lbl_condition.text = $"{item.condition.ToString()}%";
                 lbl_description.text = item.description;
 
-                lbl_quantity.text = button.GetComponent<InventorySlot>().quant.ToString();
+                lbl_quantity.text = button.GetComponent<InventorySlot>().quant.ToString("00.00");
             }
         }
        
@@ -62,7 +62,7 @@ public class ItemExpUIManager : MonoBehaviour
                     iconRender.sprite = item.icon;
                     lbl_name.text = item.itemName;
                     lbl_type.text = item.itemType.ToString();
-                    lbl_weight.text = $"{item.weight.ToString()} Kg";
+                    lbl_weight.text = $"{item.weight.ToString("00.00")} Kg";
                     lbl_rarity.text = item.rarityLevel.ToString();
                     lbl_origin.text = item.origin;
                     lbl_condition.text = $"{item.condition.ToString()}%";

@@ -20,6 +20,11 @@ public class StoreInfo
 
 public class PurchaseSystem : MonoBehaviour
 {
+    [SerializeField] AudioClip noMoney;
+
+    [SerializeField] AudioSource audioSource;
+    [Space]
+
     [SerializeField]ProductsGeneralTable productsGeneralTable;
 
     public StoreInfo Store;
@@ -60,6 +65,9 @@ public class PurchaseSystem : MonoBehaviour
         if(totalValue > PlayerStts.Instance.money)
         {
             print("Voce não possui dinheiro suficiente");
+            UIManager.audioSource.clip = noMoney;
+            audioSource.Play();
+
         }
         else
         {

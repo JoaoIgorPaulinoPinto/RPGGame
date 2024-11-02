@@ -24,7 +24,7 @@ public class GeneralUIManager : MonoBehaviour
 
     public void SetAnimatioState(string parameterName, bool value)
     {
-        Debug.Log($"Setting animation parameter {parameterName} to {value}");
+        
         animator.SetBool(parameterName, value);
     }
 }

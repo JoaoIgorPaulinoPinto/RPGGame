@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,12 @@ using static InventoryToolsBarManager;
 
 public class InventoryUIManager : MonoBehaviour
 {
+    [SerializeField]InventoryToolsBarManager inventoryToolsBarManager;
+
+
+
+    [SerializeField] TextMeshProUGUI lbl_currentWeight;
+    [SerializeField] TextMeshProUGUI lbl_limitWeight;
     
     [SerializeField] Transform UI;
     [SerializeField] Transform[] slotsParents;
@@ -30,13 +37,20 @@ public class InventoryUIManager : MonoBehaviour
             }
             else
             {
+                
+
                 someNull = false;
             }
         }
-        //inventoryToolsBarManager.UpdateToolsBarData();
+        
+        inventoryToolsBarManager.UpdateToolsBarData();
         return someNull;
     }
-
+    public void UpdateWightLabel()
+    {
+        lbl_currentWeight.text = "Peso atual: " + Inventory.Instance.currentWeight.ToString("00.00");
+        lbl_limitWeight.text = "Peso limite: " + Inventory.Instance.limitWeight.ToString("00.00");
+    }
     public void RemoveFromUI(InventoryItems item, InventorySlot? selectedSlot)
     {
         if (selectedSlot != null)
@@ -58,7 +72,7 @@ public class InventoryUIManager : MonoBehaviour
                 }
             }
         }
-        //inventoryToolsBarManager.UpdateToolsBarData();
+        inventoryToolsBarManager.UpdateToolsBarData();
     }
 
     public void UpdateSlotValues(InventoryItems item, InventorySlot? selectedSlot)
@@ -84,10 +98,13 @@ public class InventoryUIManager : MonoBehaviour
                 }
             }
         }
+        inventoryToolsBarManager.UpdateToolsBarData();
+
     }
 
     public void OpenInventory()
     {
+        PlayerControlsManager.Instance.realease = false;
         GeneralUIManager.Instance.animator.SetBool("Inventory", true);
         inventorySlotsMovimentation.StartSlotsSprite();
         UI.gameObject.SetActive(true);
@@ -106,10 +123,13 @@ public class InventoryUIManager : MonoBehaviour
         yield return new WaitForSeconds(0.35f);
         isOpen = false;
         UI.gameObject.SetActive(false);
+        PlayerControlsManager.Instance.realease = true;
+
     }
 
     private void Start()
     {
+        UpdateWightLabel();
         InitializeSlots();
         inventorySlotsMovimentation.StartSlotsSprite();
     }
@@ -135,8 +155,17 @@ public class InventoryUIManager : MonoBehaviour
         foreach (var item in slots)
         {
             InventorySlot i = item.transform.GetChild(0).GetComponent<InventorySlot>();
-            if (i.cellItem != null) { retorno = true; } else retorno = false;
+            if(i.cellItem == null)
+            {
+                return true;
+            }
+            else
+            {
+                retorno = false;
+            }
         }
         return retorno;
     }
+
+
 }

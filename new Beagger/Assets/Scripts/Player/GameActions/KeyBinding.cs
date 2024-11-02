@@ -11,5 +11,4 @@ public class KeyBinding : ScriptableObject
     public int mouseKey_atack;
     public int mouseKey_use;
     public KeyCode key_use;
-    public KeyCode key_dash;
 }   

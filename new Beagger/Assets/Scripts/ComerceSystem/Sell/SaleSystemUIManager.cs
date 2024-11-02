@@ -4,7 +4,16 @@ using UnityEngine;
 public class SaleSystemUIManager : MonoBehaviour
 {
     public GameObject UI;
-   
+
+    [Space]
+
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip addToCart;
+    [SerializeField] AudioClip RemoveFromCart;
+    [SerializeField] AudioClip Finalize;
+    [SerializeField] AudioClip Cancel;
+    
+
 
     [Space]
 
@@ -60,6 +69,8 @@ public class SaleSystemUIManager : MonoBehaviour
         saleSystem.selectedProducts.Remove(product);
         saleSystem.inventoryProducts.Add(product);  
         UpdateUI();
+        PlaySound(RemoveFromCart);
+
     }
     public void AddProduct(Product product)
     {
@@ -67,24 +78,34 @@ public class SaleSystemUIManager : MonoBehaviour
         saleSystem.inventoryProducts.Remove(product);
         UpdateUI();
         print(product.item.itemName + " SENDO VENDIDO(A)");
+        PlaySound(addToCart);
+
     }
     public void PurchaseComplete()
     {
+        PlaySound(Finalize);
+
         saleSystem.SaleCompleted();
         UpdateUI();
     }
     public void PurchaseCanceled()
     {
+        PlaySound(Cancel);
         saleSystem.SaleCanceled();
         UpdateUI();
     }
     public void UpdateDetailsScreen()
     {
-        lbl_playerMoney.text = "R$ " + PlayerStts.Instance.money.ToString();
-        lbl_TotalValue.text = "R$ " + saleSystem.totalValue.ToString();
+        lbl_playerMoney.text = "R$ " + PlayerStts.Instance.money.ToString("00.00");
+        lbl_TotalValue.text = "R$ " + saleSystem.totalValue.ToString("00.00");
         lbl_ClientName.text =  PlayerStts.Instance.playerName;
         lbl_ComerciantName.text = saleSystem.Store.SellerName;
         lbl_storeType.text = saleSystem.Store.StoreType.ToString();
-        lbl_Quantity.text = saleSystem.selectedProducts.Count.ToString();
+        lbl_Quantity.text = saleSystem.selectedProducts.Count.ToString("00.00");
+    }
+    void PlaySound(AudioClip clip)
+    {
+        audioSource.clip= clip;
+        audioSource.Play();
     }
 }

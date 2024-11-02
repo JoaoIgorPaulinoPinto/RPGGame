@@ -7,8 +7,8 @@ public class QuestGenerator : MonoBehaviour
     [SerializeField] List<ItemData> possibleItems; // Lista de itens possíveis para a quest
     [SerializeField] int minReward = 50; // Valor mínimo da recompensa
     [SerializeField] int maxReward = 200; // Valor máximo da recompensa
-    [SerializeField] int minQuestQuant = 1; // Valor mínimo da recompensa
-    [SerializeField] int maxQuestQuant = 4; // Valor máximo da recompensa
+    [SerializeField] int minQuestQuant = 1; // Número mínimo de quests a serem geradas por vez
+    [SerializeField] int maxQuestQuant = 4; // Número máximo de quests a serem geradas por vez
     [SerializeField] int minTime = 60; // Tempo mínimo (em segundos) para completar a quest
     [SerializeField] int maxTime = 300; // Tempo máximo (em segundos) para completar a quest
     [SerializeField] int minItems = 1; // Número mínimo de itens necessários para a quest
@@ -59,16 +59,17 @@ public class QuestGenerator : MonoBehaviour
 
         // Define a quantidade de itens necessários para a quest
         int numberOfItems = Random.Range(minItems, maxItems);
-        newQuest.necessaryItens = new List<ItemData>();
+        newQuest.necessaryItems = new List<QuestItem>(); // Ajustando para usar QuestItem
 
         // Adiciona os itens sorteados na lista de itens necessários para a quest
         for (int i = 0; i < numberOfItems; i++)
         {
             ItemData randomItem = possibleItems[Random.Range(0, possibleItems.Count)];
-            newQuest.necessaryItens.Add(randomItem);
+            int quantity = Random.Range(1, 5); // Define uma quantidade aleatória do item
+            newQuest.necessaryItems.Add(new QuestItem(randomItem)); // Usa QuestItem em vez de ItemData
         }
 
-        newQuest.acepted = false;
+        newQuest.accepted = false;
         newQuest.completed = false;
 
         generatedQuests.Add(newQuest); // Adiciona a quest à lista de quests geradas
@@ -88,13 +89,15 @@ public class QuestGenerator : MonoBehaviour
 
     public void AddQuests()
     {
-        TryGetComponent<QuestsData>(out QuestsData qstDt);
-        qstDt.quest.Clear();
-        foreach (var item in generatedQuests)
+        if (TryGetComponent<QuestsData>(out QuestsData qstDt))
         {
-            qstDt.quest.Add(item);
+            qstDt.quest.Clear();
+            foreach (var item in generatedQuests)
+            {
+                qstDt.quest.Add(item);
+            }
+            // Limpa as quests geradas depois de adicioná-las à lista de quests
+            generatedQuests.Clear();
         }
-        //QuestSystem.Instance.DeactivateQuest();
-        generatedQuests.Clear();
     }
 }

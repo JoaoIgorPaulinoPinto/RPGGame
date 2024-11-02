@@ -12,7 +12,5 @@ public class NPCDialog : InteractableGameObject, IInteractable
         PlayerControlsManager.Instance.realease = false;
         DialogSystem.Instance.SetData(dialogInfo, npcData, questsData);
         DialogSystem.Instance.StartDialog();
-
-        
     }
 }

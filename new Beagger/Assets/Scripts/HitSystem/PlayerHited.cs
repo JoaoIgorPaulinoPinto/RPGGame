@@ -28,7 +28,7 @@ public class PlayerHited : HitableGameObject , IHitable
     public void Hited(int d, Transform i, float stanTime)
     {
         health -= d;
-
+        PlayerStts.Instance.heath -= d;
 
         StartCoroutine(IEHited(d, i, stanTime));
         if (health <= 0)
@@ -49,7 +49,7 @@ public class PlayerHited : HitableGameObject , IHitable
             Vector2 forceDir = (transform.position - i.position).normalized;
 
             // Ajusta a velocidade diretamente, criando um "impulso" na direção contrária ao impacto
-            rb.velocity = forceDir * d;
+            rb.velocity = forceDir * d * 2;
         }
         spriteRenderer.color = hitColor;
         yield return new WaitForSeconds(0.15f);
@@ -63,7 +63,7 @@ public class PlayerHited : HitableGameObject , IHitable
 
     public void Destroyed()
     {
-        print("Game Over!!!"); 
-        //Destroy(gameObject, 0.3f); // Destroi o objeto com um pequeno delay
+        print("Game Over!!!");
+        PlayerStts.Instance.PlayerDied();
     }
 }

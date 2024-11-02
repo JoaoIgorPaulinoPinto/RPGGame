@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemAudioManager : MonoBehaviour
 {
-    public AudioClip audioClip;
+    public AudioClip audioClip; 
     public AudioSource audioSource;
 
     public void PlaySound()
