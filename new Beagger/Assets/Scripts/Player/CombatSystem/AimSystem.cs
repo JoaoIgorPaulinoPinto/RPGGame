@@ -28,6 +28,8 @@ public class AimSystem : MonoBehaviour
     [SerializeField] float radius;
     [SerializeField] int parts;
 
+    [SerializeField] LayerMask targetLayer;
+
     private void Update()
     {
         RotateTowardsMouse();
@@ -39,6 +41,7 @@ public class AimSystem : MonoBehaviour
         Vector2 direction = VerifyRotation();
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         pivot.rotation = Quaternion.Euler(0, 0, angle);
+
     }
     private void AdjustGunDistance()
     {
@@ -53,8 +56,9 @@ public class AimSystem : MonoBehaviour
         gun.localPosition = realNewPos;
 
         gun.LookAt(pivot);
+
     }
-    public Transform[] Check(LayerMask targetLayer)
+    public Transform[] Check()
     {
         List<Transform> hitTargets = new List<Transform>();
 

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d33d8de5f330348a314b7b62394642, type: 3}
+  m_Name: Noz
+  m_EditorClassIdentifier: 
+  origin: Carvalho
+  weight: 0.03
+  itemType: 1
+  rarityLevel: 1
+  condition: 100
+  itemName: Noz
+  description: Use para sacear sua fome.
+  icon: {fileID: 2141028954941974535, guid: 6d5b209b5c883034d9dd394d95a851cb, type: 3}
+  prefab: {fileID: 2677397921559612445, guid: 3e61f81fbafd22143a055436eec5e03f, type: 3}
+  InHandItemprefab: {fileID: 2677397921559612445, guid: 3e61f81fbafd22143a055436eec5e03f, type: 3}
+  efectPower: 5
+  time: 2
+  type: 0

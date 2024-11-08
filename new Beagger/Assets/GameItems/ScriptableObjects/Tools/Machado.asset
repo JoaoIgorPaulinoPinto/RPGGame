@@ -19,12 +19,12 @@ MonoBehaviour:
   condition: 100
   itemName: 'Machado '
   description: Usado para cortar arvores
-  icon: {fileID: -2521110247052372404, guid: dc3391bcd809dc44589474b83b18f2c3, type: 3}
+  icon: {fileID: -4050147019599816419, guid: 6d5b209b5c883034d9dd394d95a851cb, type: 3}
   prefab: {fileID: 6791387831742643438, guid: 6aa1d8e4aec847d46a762d417650ce52, type: 3}
   InHandItemprefab: {fileID: 6791387831742643438, guid: 6aa1d8e4aec847d46a762d417650ce52, type: 3}
   toolType: 2
   damage: 13
-  cadence: 0.3
+  cadence: 1
   mask:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 256

@@ -114,6 +114,11 @@ public class PlayerStts : MonoBehaviour
         {
             heath -= 0.25f * Time.deltaTime;
         }
+        if(hunger > 50 && thirst > 50)
+        {
+            heath += 0.25f * Time.deltaTime;
+
+        }
 
         // Garantindo que a saúde não fique abaixo de 0
         heath = Mathf.Clamp(heath, 0, 100);

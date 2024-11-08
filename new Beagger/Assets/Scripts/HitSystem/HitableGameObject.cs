@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 interface IHitable 
 {
-    public void Hited(int damage, Transform i, float stanTime);
+    public void Hited(int damage, Transform i, float stanTime, ItemData itemData);
     public void Destroyed();
 }
 public class HitableGameObject : MonoBehaviour

@@ -8,8 +8,6 @@ public class Tool : ItemData
 
     public float cadence;
 
-    public LayerMask mask;
-
     
     public override void UseItem()
     {

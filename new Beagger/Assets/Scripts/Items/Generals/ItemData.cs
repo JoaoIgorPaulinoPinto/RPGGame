@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public class ItemData : ScriptableObject
+public class    ItemData : ScriptableObject
 {
     public string origin; // mudar para Enum quando houver os lugares
 

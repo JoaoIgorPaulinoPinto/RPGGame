@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Tree : HitableGameObject, IHitable
+public class BreakableGameObject : HitableGameObject, IHitable
 {
     public Color hitColor = Color.red; // Cor ao ser atingido
     private Color alternateColor = Color.white; // Cor alternada (branco)
@@ -12,22 +12,30 @@ public class Tree : HitableGameObject, IHitable
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void Hited(int damage, Transform i, float stanTime)
+    public void Hited(int damage, Transform i, float stanTime, ItemData itemData)
     {
-        health -= damage;
-        if (spriteRenderer != null)
+        if (itemData is Tool)
         {
-            StartCoroutine(IEHited(stanTime));
-        }
-        if (health <= 0)
-        {
-            Destroyed();
+            Tool item = itemData as Tool;
+            if (item.toolType == ToolType.Axe)
+            {
+                audioSource.clip = hitedClip;
+                audioSource.Play();
+                health -= damage;
+                if (spriteRenderer != null)
+                {
+                    StartCoroutine(IEHited(stanTime));
+                }
+                if (health <= 0)
+                {
+                    Destroyed();
+                }
+            }
         }
     }
 
     private IEnumerator IEHited(float stanTime)
     {
-        
         spriteRenderer.color = hitColor; // Troca para a cor de hit
         yield return new WaitForSeconds(0.1f); // Espera
         spriteRenderer.color = alternateColor; // Troca para a cor alternada (branco)
@@ -36,10 +44,9 @@ public class Tree : HitableGameObject, IHitable
 
     public void Destroyed()
     {
-        foreach (var item in drops)
-        {
-            ItemsManager.Instance.DropItem(item, 1, transform);
-        }
-        Destroy(gameObject, 0.3f); // Destroi o objeto com um pequeno delay
+        int numberOfDrops = Random.Range(1, drops.Count + 1);
+        var randomItem = drops[Random.Range(0, drops.Count)];
+        ItemsManager.Instance.DropItem(randomItem, numberOfDrops, transform);
+        Destroy(gameObject, 0.3f); 
     }
 }

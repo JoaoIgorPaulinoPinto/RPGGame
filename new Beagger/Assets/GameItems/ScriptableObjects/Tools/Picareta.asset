@@ -19,12 +19,12 @@ MonoBehaviour:
   condition: 100
   itemName: Picareta
   description: Usado para cortar arvores
-  icon: {fileID: 8979896494735254760, guid: dc3391bcd809dc44589474b83b18f2c3, type: 3}
+  icon: {fileID: -2518079444496299386, guid: 6d5b209b5c883034d9dd394d95a851cb, type: 3}
   prefab: {fileID: 6791387831742643438, guid: e6e8ab0cede86ab42aa160912b263cc0, type: 3}
   InHandItemprefab: {fileID: 6791387831742643438, guid: e6e8ab0cede86ab42aa160912b263cc0, type: 3}
   toolType: 1
-  damage: 23
-  cadence: 2
+  damage: 15
+  cadence: 1
   mask:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 256

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using System.Diagnostics;
-using Unity.VisualScripting;
+
 using UnityEngine;
 
 public class EquipedItemsManager : MonoBehaviour
@@ -35,44 +34,54 @@ public class EquipedItemsManager : MonoBehaviour
     {
         if (button == null)
         {
+            // Remove o item se não houver botão
             if (pivot.childCount > 0)
             {
                 Transform currentItem = pivot.GetChild(0);
                 Destroy(currentItem.gameObject);
             }
+            EquipedItem = null;
+            prefab = null;
         }
         else
         {
             // Obtém o item do botão
             this.button = button;
-            ItemData item = button.GetComponent<ToolsBarSlot>().item;
+            ItemData newItem = button.GetComponent<ToolsBarSlot>().item;
             button.TryGetComponent<ToolsBarSlot>(out ToolsBarSlot toolsBarSlot);
             ToolsBarManager.currentSlotIndex = toolsBarSlot.slotindex;
             ToolsBarManager.UpdateSelectedSlotUI(toolsBarSlot);
-            // Atualiza o item equipado
-            EquipedItem = item;
 
-            // Remove o item atual, se existir
-            if (pivot.childCount > 0)
+            // Verifica se é o mesmo item
+            if (EquipedItem != newItem)
             {
-                Transform currentItem = pivot.GetChild(0);
-                Destroy(currentItem.gameObject);
-                UseItemsSystem.Instance.equipedItemAnimator = null;
-            }
+                // Atualiza o item equipado
+                EquipedItem = newItem;
 
-            // Instancia o novo item, se houver um prefab
-            if (EquipedItem != null && EquipedItem.prefab != null)
-            {
-                GameObject i = Instantiate(EquipedItem.prefab, pivot);
+                // Remove o item atual, se existir
+                if (pivot.childCount > 0)
+                {
+                    Transform currentItem = pivot.GetChild(0);
+                    Destroy(currentItem.gameObject);
+                    UseItemsSystem.Instance.equipedItemAnimator = null;
+                }
 
-                i.GetComponent<SpriteRenderer>().sortingOrder = 3;
-                 
-                prefab = i;
-                i.TryGetComponent<Animator>(out Animator animator);
-                UseItemsSystem.Instance.equipedItemAnimator = animator;
+                // Instancia o novo item
+                if (EquipedItem != null && EquipedItem.prefab != null)
+                {
+                    GameObject i = Instantiate(EquipedItem.prefab, pivot);
+                    i.GetComponent<SpriteRenderer>().sortingOrder = 4;
+
+                    prefab = i;
+                    i.TryGetComponent<Animator>(out Animator animator);
+                    UseItemsSystem.Instance.equipedItemAnimator = animator;
+                }
             }
         }
-        print(EquipedItem);
+    }
+    private void Update()
+    {
+
     }
 
 }

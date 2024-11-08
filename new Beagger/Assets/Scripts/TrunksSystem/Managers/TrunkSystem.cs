@@ -41,12 +41,11 @@ public class TrunkSystem : MonoBehaviour
     {
         curerntTrunk.items = items;
     }
-    public void Use(float maxWeight, List<TrunkItems> items, GameObject caller)
+    public void Use(float maxWeight, List<TrunkItems> items, Trunk trunk)
     {
         this.maxWeight = maxWeight;
         this.items = items;
         calcWeight();
-        caller.TryGetComponent<Trunk>(out Trunk trunk);
         if (trunk) this.curerntTrunk = trunk;
         UIManager.OpenUI();
         

@@ -31,7 +31,8 @@ public enum ItemType
     Tool, 
     Weapon,
     Bag,
-    Construction
+    Construction,
+    RawMaterial
 }
 
 public enum ConsumableType 

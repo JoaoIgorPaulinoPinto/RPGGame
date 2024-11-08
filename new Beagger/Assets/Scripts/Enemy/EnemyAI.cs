@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-//using static UnityEditor.Progress;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -28,6 +27,8 @@ public class EnemyAI : MonoBehaviour
     bool following = false;
     bool idle = true;
 
+    [SerializeField] float patrolSpeed = 2f; // Velocidade de patrulha
+    [SerializeField] float chaseSpeed = 4f;  // Velocidade de perseguição
     [SerializeField] float radius;
     [SerializeField] float maxPlayerDistance;
     [SerializeField] LayerMask layer;
@@ -35,6 +36,15 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] float stopFollowWaitTime = 2f; // Tempo de espera ao parar de seguir
     private float stopFollowTimer = 0f; // Temporizador ao parar de seguir
     private bool waitAfterFollowing = false; // Se deve esperar após parar de seguir
+
+    private float attackCooldown = 1f; // Tempo de cadência de ataque
+    private float lastAttackTime = 0f; // Tempo do último ataque
+
+    private void Start()
+    {
+        agent.speed = patrolSpeed; // Configura a velocidade inicial para patrulha
+        SetNextPatrolPoint(); // Define o primeiro ponto de patrulha
+    }
 
     private void Update()
     {
@@ -77,8 +87,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (idle && !waiting)
         {
-            // Define o ponto atual para o próximo da lista, com comportamento cíclico
-            currentPoint = locomotionPoints[currentPointIndex];
+            SetNextPatrolPoint(); // Define o próximo ponto de patrulha
             idle = false;
             agent.SetDestination(currentPoint.point.position);
         }
@@ -95,11 +104,7 @@ public class EnemyAI : MonoBehaviour
             if (waitTimer >= currentPoint.timeWait)
             {
                 waiting = false; // Reseta o estado de espera
-                currentPoint = null; // Libera o ponto atual
                 idle = true; // Permite mover para o próximo ponto
-
-                // Incrementa o índice e reinicia o ciclo quando necessário
-                currentPointIndex = (currentPointIndex + 1) % locomotionPoints.Count;
             }
         }
     }
@@ -107,6 +112,7 @@ public class EnemyAI : MonoBehaviour
     void FollowPlayer()
     {
         following = true;
+        agent.speed = chaseSpeed; // Configura a velocidade para perseguição
         agent.SetDestination(player.position);
         idle = false; // Para de patrulhar enquanto segue o jogador
     }
@@ -133,6 +139,13 @@ public class EnemyAI : MonoBehaviour
         return false; // Jogador fora do raio
     }
 
+    private void SetNextPatrolPoint()
+    {
+        // Define o próximo ponto de patrulha e reinicia o índice ao chegar ao fim
+        currentPoint = locomotionPoints[currentPointIndex];
+        currentPointIndex = (currentPointIndex + 1) % locomotionPoints.Count; // Cicla os pontos
+    }
+
     private void OnDrawGizmos()
     {
         // Define a cor do gizmo para visualizar o raio
@@ -146,9 +159,16 @@ public class EnemyAI : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.TryGetComponent(out IHitable hitable);
-            hitable.Hited(enemyData.atackDamage, transform, enemyData.atackStanTime);
+            // Verifica se o tempo de cadência passou antes de permitir o ataque
+            if (Time.time - lastAttackTime >= attackCooldown)
+            {
+                // Atualiza o tempo do último ataque
+                lastAttackTime = Time.time;
+
+                // Executa o ataque
+                collision.gameObject.TryGetComponent(out IHitable hitable);
+                hitable.Hited(enemyData.atackDamage, transform, enemyData.atackStanTime, enemyData.weapon);
+            }
         }
     }
-
 }

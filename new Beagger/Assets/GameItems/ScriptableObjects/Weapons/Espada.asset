@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af05c8c469f72cc47aa3b275b04d4bb7, type: 3}
+  m_Name: Espada
+  m_EditorClassIdentifier: 
+  origin: Ferreiro
+  weight: 1.9
+  itemType: 3
+  rarityLevel: 2
+  condition: 100
+  itemName: Espada
+  description: Use para combater inimigos.
+  icon: {fileID: -84460045154053082, guid: 6d5b209b5c883034d9dd394d95a851cb, type: 3}
+  prefab: {fileID: 6791387831742643438, guid: 8484de567936b1e4d95ede2887181720, type: 3}
+  InHandItemprefab: {fileID: 6791387831742643438, guid: 8484de567936b1e4d95ede2887181720, type: 3}
+  range: 1
+  cadence: 0.3
+  weaponType: 0
+  damage: 15
+  mask:
+    serializedVersion: 2
+    m_Bits: 0

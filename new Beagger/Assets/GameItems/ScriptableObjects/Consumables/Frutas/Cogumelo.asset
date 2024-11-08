@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d33d8de5f330348a314b7b62394642, type: 3}
+  m_Name: Cogumelo
+  m_EditorClassIdentifier: 
+  origin: Fungino
+  weight: 0.2
+  itemType: 1
+  rarityLevel: 1
+  condition: 100
+  itemName: Cogumelo
+  description: Use para sacear sua fome.
+  icon: {fileID: -5072544624263115101, guid: 6d5b209b5c883034d9dd394d95a851cb, type: 3}
+  prefab: {fileID: 2677397921559612445, guid: 0abc505451d31d740badb0dd7a77e9b0, type: 3}
+  InHandItemprefab: {fileID: 2677397921559612445, guid: 0abc505451d31d740badb0dd7a77e9b0, type: 3}
+  efectPower: 40
+  time: 6
+  type: 3

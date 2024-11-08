@@ -47,6 +47,7 @@ public class InventoryToolsBarManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+       
     }
     private void Start()
     {
