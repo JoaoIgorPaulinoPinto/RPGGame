@@ -27,7 +27,7 @@ public class PurchaseSystem : MonoBehaviour
 
     [SerializeField]ProductsGeneralTable productsGeneralTable;
 
-    public StoreInfo Store;
+    [HideInInspector]public StoreInfo Store;
         
     
 

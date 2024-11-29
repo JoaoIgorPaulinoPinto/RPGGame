@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SaleSystem : MonoBehaviour
 {
     [SerializeField] ProductsGeneralTable productsGeneralTable;
 
-    public StoreInfo Store;
+    [HideInInspector] public StoreInfo Store;
 
     [SerializeField] SaleSystemUIManager UIManager;
 
     public List<Product> selectedProducts = new List<Product>();
     public List<Product> inventoryProducts = new List<Product>();
+    public List<ItemData> acceptedProducts = new List<ItemData>();
 
     public float totalValue = 0;
 
@@ -38,14 +38,18 @@ public class SaleSystem : MonoBehaviour
         {
             foreach (var item in Inventory.Instance.inventory)
             {
-                // Usa o dicionário para acessar o produto rapidamente
-                if (productDictionary.TryGetValue(item.item.itemName, out Product foundProduct))
+                // Verifica se o item é aceito
+                if (acceptedProducts.Contains(item.item))
                 {
-                    // Adiciona uma entrada para cada unidade do item no inventário
-                    for (int i = 0; i < item.quant; i++)
+                    // Usa o dicionário para acessar o produto rapidamente
+                    if (productDictionary.TryGetValue(item.item.itemName, out Product foundProduct))
                     {
-                        Product newProduct = new Product(foundProduct.item, foundProduct.price);
-                        inventoryProducts.Add(newProduct);
+                        // Adiciona uma entrada para cada unidade do item no inventário
+                        for (int i = 0; i < item.quant; i++)
+                        {
+                            Product newProduct = new Product(foundProduct.item, foundProduct.price);
+                            inventoryProducts.Add(newProduct);
+                        }
                     }
                 }
             }

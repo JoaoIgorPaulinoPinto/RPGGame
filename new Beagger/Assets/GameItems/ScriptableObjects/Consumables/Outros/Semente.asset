@@ -19,7 +19,7 @@ MonoBehaviour:
   condition: 100
   itemName: Sementes de arvore
   description: Use para saciar sua fome.
-  icon: {fileID: -832937159663139680, guid: 6d5b209b5c883034d9dd394d95a851cb, type: 3}
+  icon: {fileID: 5424668036762075201, guid: 6d5b209b5c883034d9dd394d95a851cb, type: 3}
   prefab: {fileID: 2677397921559612445, guid: fc6a7b020a111824eaef8363080f34d4, type: 3}
   InHandItemprefab: {fileID: 2677397921559612445, guid: fc6a7b020a111824eaef8363080f34d4, type: 3}
   efectPower: 10

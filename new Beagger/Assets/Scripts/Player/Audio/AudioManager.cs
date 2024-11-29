@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] glassFootstepClips; // Sons de passos no vidro
     public AudioClip[] concreteFootstepClips; // Sons de passos no concreto
     public AudioClip[] dirtFootstepClips; // Sons de passos na terra
+    public AudioClip[] woodFootstepClips; // Sons de passos na madeira
 
     [SerializeField] AudioSource audioSource;
 
@@ -15,14 +16,18 @@ public class AudioManager : MonoBehaviour
     public LayerMask groundGlassLayer;
     public LayerMask groundConcreteLayer;
     public LayerMask groundDirtLayer;
+    public LayerMask groundWoodLayer; // Layer de madeira
 
     [SerializeField] Transform playerTransform; // Transform do jogador para verificar o chão
+
+    // Comprimento do Raycast para detectar o chão
+    private float rayLength = 0.5f;
 
     // Método para tocar sons de passos, chamado pelo evento de animação
     public void PlayFootstepSound()
     {
         AudioClip clip = GetFootstepClipByGround();
-            
+
         if (clip != null)
         {
             audioSource.PlayOneShot(clip);
@@ -33,8 +38,11 @@ public class AudioManager : MonoBehaviour
     private AudioClip GetFootstepClipByGround()
     {
         // Raycast 2D abaixo do jogador para detectar a layer do chão
-        RaycastHit2D hit = Physics2D.Raycast(playerTransform.position, Vector2.zero);
-       
+        RaycastHit2D hit = Physics2D.Raycast(playerTransform.position, Vector2.down, rayLength, groundGlassLayer | groundConcreteLayer | groundDirtLayer | groundWoodLayer);
+
+        // Desenha o Raycast na cena para debug
+        Debug.DrawRay(playerTransform.position, Vector2.down * rayLength, Color.red);
+
         if (hit.collider != null)
         {
             // Verifica se o chão está na layer de vidro
@@ -51,6 +59,11 @@ public class AudioManager : MonoBehaviour
             else if (((1 << hit.collider.gameObject.layer) & groundDirtLayer) != 0)
             {
                 return dirtFootstepClips[Random.Range(0, dirtFootstepClips.Length)];
+            }
+            // Verifica se o chão está na layer de madeira
+            else if (((1 << hit.collider.gameObject.layer) & groundWoodLayer) != 0)
+            {
+                return woodFootstepClips[Random.Range(0, woodFootstepClips.Length)];
             }
         }
         return null; // Retorna null se nenhuma layer for detectada

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Door : InteractableGameObject, IInteractable
 {
+    public bool locked;
+
     [SerializeField]AudioSource audioSource;
     [SerializeField]AudioClip open;
     [SerializeField]AudioClip close;
@@ -15,7 +17,14 @@ public class Door : InteractableGameObject, IInteractable
    
     public void Interact()
     {
-        StartCoroutine(teleportRotine());
+        if (!locked)
+        {
+            StartCoroutine(teleportRotine());
+        }
+        else
+        {
+            PopUpSystem.Instance.SendMsg("Parece que está fechado...", MessageType.Message, null);  
+        }
     }
     IEnumerator teleportRotine()
     {

@@ -3,38 +3,45 @@ using UnityEngine;
 
 public class Bed : InteractableGameObject, IInteractable
 {
-    [SerializeField] float WakeTime = 7;
-    [SerializeField]AudioListener listener;
-    
+    [SerializeField] float sleepingUntil = 7; // Hora para acordar (exemplo: 7h da manhã)
+    [SerializeField] AudioListener listener;
+
+    // Adiciona uma referência ao script de configurações para pegar o volume salvo
+    [SerializeField] ConfigurationScreenManager configManager;
 
     public void Interact()
     {
-        print("Deitou");
         StartCoroutine(IESleep());
     }
 
     IEnumerator IESleep()
     {
+        // Salva o volume atual antes de diminuir para o sono
+        float savedVolume = AudioListener.volume;
+
         // Começa o processo de sono
         GeneralUIManager.Instance.SetAnimatioState("Sleep", true);
         PlayerControlsManager.Instance.realease = false;
 
         // Diminui o volume do AudioListener para 0 gradativamente
-        yield return StartCoroutine(FadeAudioListenerVolume(1f, 0f, 1f));
+        yield return StartCoroutine(FadeAudioListenerVolume(savedVolume, 0f, 1f));
 
+        // Simula o tempo de sono
         yield return new WaitForSeconds(3);
 
-        int waktime = (int)(WakeTime * TimeController.Instance.dayDuration);
-        TimeController.Instance.dayTimer = waktime / 24;
+        // Avança para o próximo dia
+        TimeController.Instance.PassDay();
 
-        // Finaliza o dia e mostra os ganhos do dia (exemplo de comentário)
+        int wkeTime = (int)(((sleepingUntil + TimeController.Instance.dayCount * 24f) % 24f) * TimeController.Instance.dayDuration / 24f);
 
-        // Começa a restaurar o volume do AudioListener para o nível normal
+        // Calcula o valor correto para dayTimer usando a fórmula inversa
+        TimeController.Instance.dayTimer = wkeTime;
+
+        // Finaliza o dia e restaura o estado normal
         GeneralUIManager.Instance.SetAnimatioState("Sleep", false);
-        yield return new WaitForSeconds(1);
+        yield return StartCoroutine(FadeAudioListenerVolume(0f, savedVolume, 1f));  // Restaura o volume
 
-        // Gradativamente aumenta o volume de volta ao normal
-        yield return StartCoroutine(FadeAudioListenerVolume(0f, 1f, 1f));
+        // Notifica o jogador
         PopUpSystem.Instance.SendMsg("Você acordou", MessageType.Information, null);
         PlayerControlsManager.Instance.realease = true;
     }

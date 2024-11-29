@@ -71,7 +71,7 @@ public class TimeController : MonoBehaviour
     void Update()
     {
         Cont();
-      //  UpdateLightIntensity();
+      UpdateLightIntensity();
         UpdateClockUI(); // Atualiza a UI do relógio
     }
 
@@ -113,6 +113,21 @@ public class TimeController : MonoBehaviour
             OnDayPassed?.Invoke();
         }
     }
+    public void PassDay()
+    {
+       
+            dayCount++;
+            monthTimer++;
+            dayTimer = 0; // Reset day timer
+
+            WeekCount();
+            MonthCount();
+            YearCount();
+
+            // Dispara o evento quando um dia termina
+            OnDayPassed?.Invoke();
+        
+    }
 
     void WeekCount()
     {
@@ -152,30 +167,42 @@ public class TimeController : MonoBehaviour
 
     private void UpdateLightIntensity()
     {
-        // Calcula a hora atual do dia
+        // Valores de exemplo:
         float currentHour = (dayCount * 24f + (dayTimer / (float)dayDuration) * 24f) % 24f;
 
-        // Inicializa a intensidade da luz
-        if (currentHour >= sunsetStartHour || currentHour < sunriseStartHour)
+        // Intervalos de transição
+        float sunriseStart = sunriseStartHour;        // Início do nascer do sol (6:00)
+        float sunriseEnd = sunriseStart + 2f;         // Fim do nascer do sol (8:00)
+        float sunsetStart = sunsetStartHour - 2f;     // Início do pôr do sol (18:00)
+        float sunsetEnd = sunsetStartHour;            // Fim do pôr do sol (20:00)
+
+        float minIntensity = 0.07f;
+        float maxIntensity = 0.6f;
+
+        // Suaviza a intensidade durante o nascer do sol
+        if (currentHour >= sunriseStart && currentHour <= sunriseEnd)
         {
-            // Transição para o pôr do sol (20:00 a 6:00)
-            if (currentHour >= sunsetStartHour && currentHour < 24f) // Pôr do sol
-            {
-                float sunsetProgress = (currentHour - sunsetStartHour) / (24f - sunsetStartHour); // Progresso do pôr do sol
-                sun.intensity = Mathf.Lerp(1f, 0f, sunsetProgress); // Diminui a intensidade da luz
-            }
-            else // Nascer do sol
-            {
-                float sunriseProgress = (currentHour + 24f - sunriseStartHour) / (24f + (24f - sunriseStartHour)); // Progresso do nascer do sol
-                sun.intensity = Mathf.Lerp(0f, 1f, sunriseProgress); // Aumenta a intensidade da luz
-            }
+            float progress = Mathf.InverseLerp(sunriseStart, sunriseEnd, currentHour);
+            sun.intensity = Mathf.SmoothStep(minIntensity, maxIntensity, progress);
         }
+        // Suaviza a intensidade durante o pôr do sol
+        else if (currentHour >= sunsetStart && currentHour <= sunsetEnd)
+        {
+            float progress = Mathf.InverseLerp(sunsetStart, sunsetEnd, currentHour);
+            sun.intensity = Mathf.SmoothStep(maxIntensity, minIntensity, progress);
+        }
+        // Manter a intensidade máxima durante o dia
+        else if (currentHour > sunriseEnd && currentHour < sunsetStart)
+        {
+            sun.intensity = maxIntensity;
+        }
+        // Manter a intensidade mínima durante a noite
         else
         {
-            // Durante o dia (6:00 a 20:00), mantenha a intensidade total
-            sun.intensity = 1f;
+            sun.intensity = minIntensity;
         }
     }
+
 
     private void UpdateClockUI()
     {

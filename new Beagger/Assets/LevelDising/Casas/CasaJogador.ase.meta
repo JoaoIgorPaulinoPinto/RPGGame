@@ -144,7 +144,7 @@ ScriptedImporter:
   spriteSheetImportData:
   - name: CasaJogador_0
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -244,8 +244,8 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: CasaJogador_5
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.49764976, y: 0.014750366}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2

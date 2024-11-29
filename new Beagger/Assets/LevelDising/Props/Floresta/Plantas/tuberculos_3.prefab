@@ -143,12 +143,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0936f5a012a1dcd4190c1cb7c135de9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionName: 
+  interactionName: Coletar
   isOnFocus: 0
   itensToCollect:
   - {fileID: 11400000, guid: eed9508f9e5070b40a63f2168a6daded, type: 2}
   timeToReplace: 2000
-  timeToCollect: 7
+  timeToCollect: 5
   defSprite: {fileID: 5160174615922041639, guid: 7cf331b82ac2594458f39151b04636d3, type: 3}
   collectedSprite: {fileID: 0}
   actionUIManager: {fileID: 0}

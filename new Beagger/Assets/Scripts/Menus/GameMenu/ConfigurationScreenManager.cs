@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ConfigurationScreenManager : MonoBehaviour
 {
-
+    [SerializeField] GeneralAudioManager audioManager;
 
     [Header("Volume Settings")]
     public Slider musicVolumeSlider;
@@ -19,7 +19,7 @@ public class ConfigurationScreenManager : MonoBehaviour
 
     [Header("PlayerPrefs Configurations")]
     public PlayerPrefsDataSaving prefsConfig; // Referência ao ScriptableObject
-
+   
     private void OnEnable()
     {
         PopulateResolutionOptions();
@@ -73,9 +73,9 @@ public class ConfigurationScreenManager : MonoBehaviour
         ApplyResolution(resolutionDropdown.value);
         Screen.fullScreen = !windowedModeToggle.isOn;
 
-        GeneralAudioManager.Instance.SetMasterVolume(masterVolumeSlider.value);
-        GeneralAudioManager.Instance.SetMusicVolume(musicVolumeSlider.value);
-        GeneralAudioManager.Instance.SetSFXVolume(sfxVolumeSlider.value);
+        audioManager.SetMasterVolume(masterVolumeSlider.value);
+        audioManager.SetMusicVolume(musicVolumeSlider.value);
+        audioManager.SetSFXVolume(sfxVolumeSlider.value);
         AudioListener.volume = masterVolumeSlider.value;
     }
 
@@ -92,6 +92,10 @@ public class ConfigurationScreenManager : MonoBehaviour
         }
     }
     private void Awake()
+    {
+        LoadSettings();
+    }
+    private void Start()
     {
         LoadSettings();
     }

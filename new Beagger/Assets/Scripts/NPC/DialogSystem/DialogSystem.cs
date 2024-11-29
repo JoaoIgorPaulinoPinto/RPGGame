@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class Dialog
@@ -20,6 +21,7 @@ public class DialogSystem : MonoBehaviour
     
     public TextMeshProUGUI lbl_text; 
     public TextMeshProUGUI lbl_name; 
+    public Image iconNPC; 
     public GameObject UI;
     public GameObject questsUI;
     public GameObject btnShowQuests;
@@ -60,6 +62,16 @@ public class DialogSystem : MonoBehaviour
         isDialogActive = true;
         UI.SetActive(true);
         lbl_name.text = npc.NPCName;
+        if (npc.sprite)
+        {
+            iconNPC.enabled = true;
+            iconNPC.sprite = npc.sprite;
+
+        }
+        else
+        {
+            iconNPC.enabled = false;
+        }
 
         currentPageIndex = 0; 
         StartCoroutine(TypeText(dialogInfo.pages[currentPageIndex]));

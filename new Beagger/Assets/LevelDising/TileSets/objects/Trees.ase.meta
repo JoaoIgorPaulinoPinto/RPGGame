@@ -144,7 +144,7 @@ ScriptedImporter:
   spriteSheetImportData:
   - name: Trees_0
     originalName: 
-    pivot: {x: 0.5155028, y: 0.15118907}
+    pivot: {x: 0.51550287, y: 0.061388455}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -164,7 +164,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: Trees_1
     originalName: 
-    pivot: {x: 0.5186035, y: 0.15894054}
+    pivot: {x: 0.5178197, y: 0.046271104}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -224,7 +224,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: Trees_4
     originalName: 
-    pivot: {x: 0.58023214, y: 0.1610655}
+    pivot: {x: 0.5899941, y: 0.07291783}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -244,7 +244,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: Trees_5
     originalName: 
-    pivot: {x: 0.530276, y: 0.14086565}
+    pivot: {x: 0.53809744, y: 0.08164637}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -284,8 +284,8 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: Trees_7
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.54074776, y: 0.3749771}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -324,8 +324,8 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   - name: Trees_9
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 0.46699342, y: 0.35523796}
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2

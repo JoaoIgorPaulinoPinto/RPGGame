@@ -233,7 +233,7 @@ MonoBehaviour:
   itensToCollect:
   - {fileID: 11400000, guid: 93ab9cf0d32460c48a7965b98d170cc6, type: 2}
   timeToReplace: 1000
-  timeToCollect: 4
+  timeToCollect: 2
   defSprite: {fileID: 5238885793295595856, guid: 479ae3ee40fa065439b0b47177348b52, type: 3}
   collectedSprite: {fileID: 0}
   actionUIManager: {fileID: 0}

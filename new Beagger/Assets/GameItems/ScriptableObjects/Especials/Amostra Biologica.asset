@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ca90820330d9041b281f1240bb6dd6, type: 3}
+  m_Name: Amostra Biologica
+  m_EditorClassIdentifier: 
+  origin: Comando Estelar
+  weight: 6
+  itemType: 6
+  rarityLevel: 4
+  condition: 100
+  itemName: Amotra Biologica
+  description: "Fus\xEDvel eletr\xF4nico"
+  icon: {fileID: -1519203164, guid: 25ffa768791959845959e5cc903adfac, type: 3}
+  prefab: {fileID: 6791387831742643438, guid: 0d5efedb0617f364da1fd5a7dc3c675c, type: 3}
+  InHandItemprefab: {fileID: 6791387831742643438, guid: 0d5efedb0617f364da1fd5a7dc3c675c, type: 3}

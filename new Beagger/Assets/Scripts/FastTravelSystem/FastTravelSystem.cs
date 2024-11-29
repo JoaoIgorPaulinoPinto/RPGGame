@@ -20,12 +20,13 @@ public class FastTravelSystem : InteractableGameObject, IInteractable
 
     public void Interact()
     {
-        uiMangager.StartUI(price, message);
+        uiMangager.StartUI(price, message, this);
     }
     public void Accepted()
     {
         if(PlayerStts.Instance.money >= price)
         {
+            PlayerStts.Instance.money = PlayerStts.Instance.money - price;
            
             StartCoroutine(teleportRotine());
             uiMangager.CloseUI();

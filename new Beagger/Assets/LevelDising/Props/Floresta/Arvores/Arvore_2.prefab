@@ -122,10 +122,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.028411865, y: -0.3336525}
+  m_Offset: {x: -0.025505066, y: 0.024611473}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5155028, y: 0.15118907}
+    pivot: {x: 0.51550287, y: 0.061388455}
     oldSize: {x: 4.0625, y: 3.25}
     newSize: {x: 8.125, y: 8.5}
     adaptiveTilingThreshold: 0.5
@@ -133,7 +133,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9917908, y: 0.31871796}
+  m_Size: {x: 1.0675201, y: 0.46435356}
   m_EdgeRadius: 0
 --- !u!82 &9049276417359480681
 AudioSource:
@@ -146,7 +146,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 23dffce84aebf41479e2c51c838d5154, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -278,7 +278,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e6e45c5a577a25d4eaa0eba8540211d2, type: 2}
   - {fileID: 11400000, guid: e6e45c5a577a25d4eaa0eba8540211d2, type: 2}
   timeToReplace: 1000
-  timeToCollect: 15
+  timeToCollect: 10
   defSprite: {fileID: -8336116298602146619, guid: ee4a8eb51e064454b920cde14fbfa1b0, type: 3}
   collectedSprite: {fileID: -1219708201724955641, guid: ee4a8eb51e064454b920cde14fbfa1b0, type: 3}
   actionUIManager: {fileID: 0}
@@ -325,7 +325,7 @@ Transform:
   m_GameObject: {fileID: 9051846191266906441}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0315, y: -0.648, z: 0}
+  m_LocalPosition: {x: -0.031, y: -0.3554, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

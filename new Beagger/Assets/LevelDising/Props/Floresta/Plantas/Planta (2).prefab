@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 255184216953029444}
   - component: {fileID: 7208251942697512348}
   - component: {fileID: 5240564333189623343}
+  - component: {fileID: -3996384789015433159}
   m_Layer: 6
   m_Name: Planta (2)
   m_TagString: Untagged
@@ -273,8 +274,24 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6866f169850d69848ab5f99802a6b925, type: 2}
   - {fileID: 11400000, guid: 6866f169850d69848ab5f99802a6b925, type: 2}
   timeToReplace: 1000
-  timeToCollect: 5
+  timeToCollect: 3
   defSprite: {fileID: 8364124571976345698, guid: 3e24085c98a388a478182a7446b85d46, type: 3}
   collectedSprite: {fileID: 0}
   actionUIManager: {fileID: 0}
   canReplace: 1
+--- !u!114 &-3996384789015433159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5471850738394188393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

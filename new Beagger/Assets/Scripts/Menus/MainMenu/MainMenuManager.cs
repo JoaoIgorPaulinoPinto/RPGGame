@@ -13,7 +13,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("ComingCutScene");
     }
 
     public void Quit()

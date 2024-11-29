@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class RuinsManager : MonoBehaviour
 {
-    [SerializeField] GameObject prefab;
-    [SerializeField] Transform parent;
-    [SerializeField] GameObject[] enemies;
-    [SerializeField] Transform[] spawnPoints; // Pontos de nascimento
+    [SerializeField] int quant; // Quantidade de inimigos a serem gerados
+    [SerializeField] GameObject prefab; // Prefab do inimigo
+    [SerializeField] Transform parent; // Transform de pai para os inimigos
+    [SerializeField] List<GameObject> enemies; // Lista de inimigos ativos
+    [SerializeField] Transform[] spawnPoints; // Pontos de spawn para os inimigos
     [SerializeField] List<Transform> locomotionPoints; // Pontos de patrulha
 
     [Space]
-    [SerializeField] Trunk trunk;
-    [SerializeField] List<ItemData> items;
+    [SerializeField] Trunk trunk; // Referência ao baú
+    [SerializeField] List<ItemData> items; // Itens que podem aparecer no baú
 
     private void OnEnable()
     {
@@ -26,6 +27,7 @@ public class RuinsManager : MonoBehaviour
             yield return null;
         }
 
+        // Assina os eventos para responder a mudanças de tempo
         TimeController.Instance.OnDayPassed += AlternateTrunkItems;
         TimeController.Instance.OnDayPassed += RespawnEnemies;
     }
@@ -42,19 +44,14 @@ public class RuinsManager : MonoBehaviour
     public void AlternateTrunkItems()
     {
         trunk.items.Clear();
-        int o;
-        do
-        {
-            o = Random.Range(0, items.Count);
-        }
-        while (o <= 2);
+        int itemCount = Random.Range(3, items.Count); // Garante que pelo menos 3 itens sejam escolhidos
 
-        for (int j = 0; j < o; j++)
+        for (int j = 0; j < itemCount; j++)
         {
-            int i = Random.Range(0, 2);
-            if (i == 1)
+            int i = Random.Range(0, items.Count);
+            if (i < items.Count) // Garantir que o item não se repita
             {
-                trunk.items.Add(new TrunkItems(items[j], Random.Range(1, 4)));
+                trunk.items.Add(new TrunkItems(items[i], Random.Range(1, 4))); // Adiciona itens ao baú
             }
         }
     }
@@ -63,6 +60,7 @@ public class RuinsManager : MonoBehaviour
     {
         int aliveEnemies = 0;
 
+        // Conta inimigos ativos
         foreach (var enemy in enemies)
         {
             if (enemy.activeInHierarchy)
@@ -71,45 +69,52 @@ public class RuinsManager : MonoBehaviour
             }
         }
 
-        int enemToSpawn = Mathf.Max(3 - aliveEnemies, 0);
+        // Verifica se é necessário gerar mais inimigos
+        int enemiesToSpawn = quant - aliveEnemies;
+
+        if (enemiesToSpawn <= 0)
+        {
+            return;
+        }
 
         List<Transform> availableSpawnPoints = new List<Transform>(spawnPoints);
         List<Transform> availableLocomotionPoints = new List<Transform>(locomotionPoints);
 
-        for (int i = 0; i < enemToSpawn; i++)
+        // Gera novos inimigos
+        for (int i = 0; i < enemiesToSpawn; i++)
         {
-            // Seleciona um ponto de nascimento único
-            Transform spawnPoint = availableSpawnPoints[Random.Range(0, availableSpawnPoints.Count)];
-            availableSpawnPoints.Remove(spawnPoint);
+            if (availableSpawnPoints.Count == 0)
+                break;
 
-            // Cria o inimigo
+            Transform spawnPoint = availableSpawnPoints[Random.Range(0, availableSpawnPoints.Count)];
+            availableSpawnPoints.Remove(spawnPoint); // Remove ponto de spawn para não repetir
+
+            // Instancia um novo inimigo
             GameObject newEnemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+            enemies.Add(newEnemy);
             newEnemy.transform.SetParent(parent);
 
-            // Configura o player e pontos de locomoção do inimigo
+            // Configura o AI do inimigo
             EnemyAI enemyAI = newEnemy.GetComponent<EnemyAI>();
             if (enemyAI != null)
             {
                 enemyAI.player = GameObject.FindGameObjectWithTag("Player").transform;
 
-                // Configura pontos de locomoção únicos, excluindo o ponto de nascimento
-                List<EnemyAI.Point> enemyPatrolPoints = new List<EnemyAI.Point>();
-                List<Transform> shuffledLocPoints = new List<Transform>(availableLocomotionPoints);
-                shuffledLocPoints.Remove(spawnPoint); // Remove o ponto de nascimento dos pontos de patrulha
+                // Cria uma lista de pontos de locomoção exclusivos para esse inimigo
+                List<EnemyAI.Point> patrolPoints = new List<EnemyAI.Point>();
+                List<Transform> shuffledLocomotionPoints = new List<Transform>(availableLocomotionPoints);
+                shuffledLocomotionPoints.Remove(spawnPoint); // Remove o ponto de spawn da lista de locomoção
 
-                // Embaralha e seleciona pontos para patrulha
-                ShuffleList(shuffledLocPoints);
-                foreach (Transform locPoint in shuffledLocPoints)
+                // Embaralha os pontos de patrulha para garantir variação
+                ShuffleList(shuffledLocomotionPoints);
+
+                // Atribui pontos de locomoção ao inimigo
+                foreach (Transform locPoint in shuffledLocomotionPoints)
                 {
-                    EnemyAI.Point point = new EnemyAI.Point
-                    {
-                        point = locPoint,
-                        timeWait = Random.Range(2f, 5f)
-                    };
-                    enemyPatrolPoints.Add(point);
+                    patrolPoints.Add(new EnemyAI.Point(locPoint, Random.Range(2f, 5f)));
                 }
 
-                enemyAI.locomotionPoints = enemyPatrolPoints;
+                enemyAI.locomotionPoints = patrolPoints;
             }
         }
     }
@@ -127,6 +132,7 @@ public class RuinsManager : MonoBehaviour
 
     private void Update()
     {
+        // Tecla para testar a alternância de itens e respawn de inimigos
         if (Input.GetKeyDown(KeyCode.O))
         {
             AlternateTrunkItems();

@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -5,17 +6,11 @@ using UnityEngine.UI;
 
 public class PlayerStts : MonoBehaviour
 {
-    
-
-    [SerializeField]GameObject img;
     public bool alive = true;
     [Space]
     public Slider sliderHeath;
-
     public Slider sliderThirst;
-
     public Slider sliderHunger;
-    // public Slider sliderHappy;
     [Space]
 
     public Transform playerBody;
@@ -24,7 +19,7 @@ public class PlayerStts : MonoBehaviour
 
     public float money;
     [Range(0, 100)]
-    public float heath;
+    public float health;
     [Range(0, 100)]
     public float thirst;
     [Range(0, 100)]
@@ -34,6 +29,8 @@ public class PlayerStts : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI txtdinheiro;
     private static PlayerStts _instance;
+
+    private Coroutine almostDeadCoroutine;
 
     public static PlayerStts Instance
     {
@@ -62,12 +59,9 @@ public class PlayerStts : MonoBehaviour
 
     private void Update()
     {
-
         UpdatePlayerMoney();
         UpdateSliders();
-
         sttsDown();
-
         MayDead();
     }
 
@@ -76,34 +70,50 @@ public class PlayerStts : MonoBehaviour
         txtdinheiro.text = "R$" + money.ToString("00.00");
     }
 
+    IEnumerator IEAlmostDead(SpriteRenderer spriteRenderer)
+    {
+        float pulseDuration = 1f; // Duração do ciclo de pulsação (ir e voltar)
+        float elapsedTime = 0f;
+
+        while (health < 25 && alive)
+        {
+            // Interpolação gradativa entre vermelho e branco
+            float lerpValue = Mathf.PingPong(elapsedTime / pulseDuration, 0.3f); // Valor entre 0 e 1
+            spriteRenderer.color = Color.Lerp(Color.white, Color.red, lerpValue);
+
+            elapsedTime += Time.deltaTime;
+            yield return null; // Espera até o próximo frame
+        }
+
+        // Garantir que a cor volte ao normal quando sair do loop
+        spriteRenderer.color = Color.white;
+    }
+
     void UpdateSliders()
     {
-        if (heath < 25)
+        SpriteRenderer playerspriterender = playerBody.GetComponent<SpriteRenderer>();
+
+        if (health < 25 && almostDeadCoroutine == null)
         {
-            img.SetActive(true);
+            almostDeadCoroutine = StartCoroutine(IEAlmostDead(playerspriterender));
         }
-        else if (heath >= 25)
+        else if (health >= 25 && almostDeadCoroutine != null)
         {
-            img.SetActive(false);
+            StopCoroutine(almostDeadCoroutine);
+            almostDeadCoroutine = null;
+            playerspriterender.color = Color.white;
         }
 
-        // Atualizando o valor do slider de saúde (não invertido)
-        sliderHeath.value = heath;
-
-        // Atualizando o valor do slider de sede (invertido)
+        sliderHeath.value = health;
         sliderThirst.value = thirst;
-
-        // Atualizando o valor do slider de fome (invertido)
         sliderHunger.value = hunger;
     }
 
     void sttsDown()
     {
-        // Diminuindo a sede e a fome
-        thirst -= 0.25f * Time.deltaTime;
-        hunger -= 0.25f * Time.deltaTime;
+        thirst -= 0.05f * Time.deltaTime;
+        hunger -= 0.05f * Time.deltaTime;
 
-        // Garantindo que os valores de sede e fome fiquem entre 0 e 100
         thirst = Mathf.Clamp(thirst, 0, 100);
         hunger = Mathf.Clamp(hunger, 0, 100);
     }
@@ -112,18 +122,16 @@ public class PlayerStts : MonoBehaviour
     {
         if (thirst <= 0 || hunger <= 0)
         {
-            heath -= 0.25f * Time.deltaTime;
+            health -= 0.25f * Time.deltaTime;
         }
-        if(hunger > 50 && thirst > 50)
+        if (hunger > 50 && thirst > 50)
         {
-            heath += 0.25f * Time.deltaTime;
-
+            health += 0.25f * Time.deltaTime;
         }
 
-        // Garantindo que a saúde não fique abaixo de 0
-        heath = Mathf.Clamp(heath, 0, 100);
+        health = Mathf.Clamp(health, 0, 100);
 
-        if (heath <= 0)
+        if (health <= 0)
         {
             PlayerDied();
         }

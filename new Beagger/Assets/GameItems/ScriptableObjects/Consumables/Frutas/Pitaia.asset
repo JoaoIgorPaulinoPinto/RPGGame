@@ -19,7 +19,7 @@ MonoBehaviour:
   condition: 100
   itemName: Pitaia
   description: Use para sacear sua fome.
-  icon: {fileID: 5972134090378138264, guid: 6d5b209b5c883034d9dd394d95a851cb, type: 3}
+  icon: {fileID: -1143250110895593497, guid: 6d5b209b5c883034d9dd394d95a851cb, type: 3}
   prefab: {fileID: 2677397921559612445, guid: a7177e21260629549a5ee911fabb4405, type: 3}
   InHandItemprefab: {fileID: 2677397921559612445, guid: a7177e21260629549a5ee911fabb4405, type: 3}
   efectPower: 25

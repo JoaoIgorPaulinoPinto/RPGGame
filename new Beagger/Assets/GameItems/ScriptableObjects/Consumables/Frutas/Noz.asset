@@ -19,7 +19,7 @@ MonoBehaviour:
   condition: 100
   itemName: Noz
   description: Use para sacear sua fome.
-  icon: {fileID: 2141028954941974535, guid: 6d5b209b5c883034d9dd394d95a851cb, type: 3}
+  icon: {fileID: -832937159663139680, guid: 6d5b209b5c883034d9dd394d95a851cb, type: 3}
   prefab: {fileID: 2677397921559612445, guid: 3e61f81fbafd22143a055436eec5e03f, type: 3}
   InHandItemprefab: {fileID: 2677397921559612445, guid: 3e61f81fbafd22143a055436eec5e03f, type: 3}
   efectPower: 5

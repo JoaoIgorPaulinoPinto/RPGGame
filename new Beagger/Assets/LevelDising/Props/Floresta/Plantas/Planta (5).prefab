@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 755185233774315837}
   - component: {fileID: 7695137591480076754}
   - component: {fileID: 3489213993006808690}
+  - component: {fileID: 1756884733087703537}
   m_Layer: 0
   m_Name: Planta (5)
   m_TagString: Untagged
@@ -251,3 +252,19 @@ MonoBehaviour:
   toco: {fileID: 6424166047001070033}
   shakeIntensity: 0.1
   shakeCount: 10
+--- !u!114 &1756884733087703537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6424166047001070033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

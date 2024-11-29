@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CursorManager : MonoBehaviour
 {
-    [SerializeField] Texture2D cursorTexture; // A imagem do cursor
+    /*[SerializeField] Texture2D cursorTexture; // A imagem do cursor
     [SerializeField] Vector2 hotSpot = Vector2.zero; // Ponto de referência no cursor (geralmente o canto superior esquerdo ou o centro)
 
     private void Start()
@@ -15,5 +15,5 @@ public class CursorManager : MonoBehaviour
     public void ResetCursor()
     {
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto); // Restaura o cursor padrão
-    }
+    }*/
 }

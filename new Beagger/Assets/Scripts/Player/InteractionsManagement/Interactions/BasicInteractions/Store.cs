@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Store : InteractableGameObject, IInteractable
 {
-    
-    public int timeClose;
-    public int timeOpen;
+    // COLOCAR ISSO NO OBJETO PORTA, PARA PODER E NAO PODER ENTRAR DEPENDENDO DO HORARIO
+
+    [HideInInspector] public bool isOpen = true;
+
     [SerializeField]GameObject UI;
     public StoreInfo StoreInfo;
     [SerializeField] ComerceUI comerceUI;
     public void Interact()
     {
-        if (TimeController.Instance.dayTimer < timeClose || TimeController.Instance.dayTimer < timeOpen)
+        if (isOpen)
         {
             PurchaseSystem purchaseSystem;
             TryGetComponent<PurchaseSystem>(out purchaseSystem);
@@ -20,18 +21,27 @@ public class Store : InteractableGameObject, IInteractable
             SaleSystem saleSystem;
             TryGetComponent<SaleSystem>(out saleSystem);
 
+            if (purchaseSystem)
+            {
+                purchaseSystem.Store = StoreInfo;
+            }
+            if (saleSystem)
+            {
+                saleSystem.Store = StoreInfo;
 
-            purchaseSystem.Store = StoreInfo;
-            saleSystem.Store = StoreInfo;
+            }
 
             comerceUI.SetStoreValues(purchaseSystem, saleSystem);
 
             comerceUI.Open();
+
         }
         else
         {
-            PopUpSystem.Instance.SendMsg("Parece que está fechado...",MessageType.Message,null);
+            PopUpSystem.Instance.SendMsg("Parece que está fechado...", MessageType.Message, null);
         }
-       
+
     }
+
+
 }

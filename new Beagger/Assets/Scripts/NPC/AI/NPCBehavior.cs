@@ -5,24 +5,29 @@ using UnityEngine.AI;
 
 public class NPCBehavior : MonoBehaviour
 {
+    public Transform pointToSleep;
+    public float sleepTime;
+    public float wakeTime;
+
     public NavMeshAgent agent;
     private LocomotionPointManager locomotionPointManager;
+    private ActionManager actionManager;
+    private Collider npcCollider;
+    private SpriteRenderer npcRenderer;
+
+    private Transform currentTarget;
+    private bool isSleeping = false;
 
     public float minActionTime = 2f; // Tempo mínimo da ação
     public float maxActionTime = 5f; // Tempo máximo da ação
-    private Transform currentTarget;
-
-    private ActionManager actionManager; // Referência ao ActionManager
-    private Collider npcCollider;
-    private SpriteRenderer npcRenderer; // Presumindo que seja 2D, para 3D, pode ser Renderer
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         locomotionPointManager = GetComponent<LocomotionPointManager>();
-        actionManager = GetComponent<ActionManager>(); // Obtém o ActionManager
+        actionManager = GetComponent<ActionManager>();
         npcCollider = GetComponent<Collider>();
-        npcRenderer = GetComponent<SpriteRenderer>(); // Ou Renderer se for 3D
+        npcRenderer = GetComponent<SpriteRenderer>();
 
         locomotionPointManager.FindLocomotionPoints();
         StartCoroutine(MoveToRandomPoints());
@@ -32,9 +37,41 @@ public class NPCBehavior : MonoBehaviour
     {
         while (true)
         {
+            float currentHour = GetCurrentHour();
+
+            // Verifica se é hora de dormir
+            if (currentHour > sleepTime || currentHour < wakeTime)
+            {
+                // Caso esteja dormindo, continua no ponto de dormir
+                if (!isSleeping)
+                {
+                    // Move para o ponto de dormir
+                    agent.SetDestination(pointToSleep.position);
+
+                    // Aguarda o NPC chegar ao ponto de dormir
+                    while (!agent.pathPending && agent.remainingDistance > agent.stoppingDistance)
+                    {
+                        yield return null;
+                    }
+
+                    // Entra no estado de sono
+                    EnterSleepState();
+                }
+
+                // Aguarda até o horário de acordar
+                while (currentHour > sleepTime || currentHour < wakeTime)
+                {
+                    currentHour = GetCurrentHour();
+                    yield return null; // Verifica a cada frame
+                }
+
+                // Sai do estado de sono
+                ExitSleepState();
+            }
+
+            // Caso não seja hora de dormir, realiza a locomoção normal
             if (locomotionPointManager.locomotionPoints.Count == 0)
             {
-                Debug.LogWarning("Nenhum ponto de locomoção disponível.");
                 yield break;
             }
 
@@ -45,61 +82,56 @@ public class NPCBehavior : MonoBehaviour
                 agent.SetDestination(currentTarget.position);
 
                 // Aguarda o NPC chegar ao ponto
-                while (Vector3.Distance(transform.position, currentTarget.position) > agent.stoppingDistance)
+                while (!agent.pathPending && agent.remainingDistance > agent.stoppingDistance)
                 {
                     yield return null;
                 }
-                yield return new WaitForSeconds(1f);
-                // Simula a "entrada" no estabelecimento desativando o colisor e a renderização
                 DisableNPCComponents();
+                // Simula "entrada" no ponto de ação
                 PerformAction();
 
-                // Define um tempo de ação aleatório (simula o tempo dentro do estabelecimento)
+                // Define o tempo de espera antes de continuar
                 float actionTime = Random.Range(minActionTime, maxActionTime);
-
-                // Aguarda o tempo da ação
                 yield return new WaitForSeconds(actionTime);
-
-                // Reativa o NPC após a ação (como se tivesse saído do estabelecimento)
                 EnableNPCComponents();
-
-                // Após ser reativado, escolhe outro ponto para ir
-                currentTarget = ChooseRandomPoint();
             }
         }
     }
 
-    // Método para desativar os componentes visuais e de colisão do NPC
+    private void EnterSleepState()
+    {
+        isSleeping = true;
+        DisableNPCComponents();
+    }
+
+    private void ExitSleepState()
+    {
+        isSleeping = false;
+        EnableNPCComponents();
+    }
+
     private void DisableNPCComponents()
     {
         if (npcCollider != null) npcCollider.enabled = false;
         if (npcRenderer != null) npcRenderer.enabled = false;
-        agent.enabled = false; // Desativa o NavMeshAgent para que ele pare de se mover
+        if (agent != null) agent.isStopped = true;
     }
 
-    // Método para reativar os componentes visuais e de colisão do NPC
     private void EnableNPCComponents()
     {
         if (npcCollider != null) npcCollider.enabled = true;
         if (npcRenderer != null) npcRenderer.enabled = true;
-        agent.enabled = true; // Reativa o NavMeshAgent para que ele volte a se mover
+        if (agent != null) agent.isStopped = false;
     }
 
-    // Escolhe uma ação aleatória para o NPC ao chegar no ponto
     private void PerformAction()
     {
         if (actionManager != null)
         {
-            // Escolhe uma ação aleatória entre comprar e vender
-            ActionManager.NPCActionType chosenAction = actionManager.ChooseRandomAction();
-
-            // Executa a ação
+            var chosenAction = actionManager.ChooseRandomAction();
             actionManager.ExecuteAction(chosenAction);
         }
-        else
-        {
-            Debug.LogWarning("Nenhum ActionManager foi encontrado.");
-        }
+
     }
 
     private Transform ChooseRandomPoint()
@@ -110,8 +142,24 @@ public class NPCBehavior : MonoBehaviour
         return locomotionPointManager.locomotionPoints[randomIndex];
     }
 
+    private float GetCurrentHour()
+    {
+        return (TimeController.Instance.dayCount * 24f +
+               (TimeController.Instance.dayTimer / (float)TimeController.Instance.dayDuration) * 24f) % 24f;
+    }
+
+    public void GoToLocation(Vector3 target)
+    {
+        agent.SetDestination(target);
+    }
+
+    public bool HasReachedDestination()
+    {
+        return !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance;
+    }
+
     private void Update()
     {
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        transform.rotation = Quaternion.Euler(0, 0, 0); // Impede rotação visual indesejada
     }
 }

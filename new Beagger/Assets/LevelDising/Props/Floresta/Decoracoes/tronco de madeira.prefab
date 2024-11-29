@@ -356,7 +356,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 93ab9cf0d32460c48a7965b98d170cc6, type: 2}
   - {fileID: 11400000, guid: 93ab9cf0d32460c48a7965b98d170cc6, type: 2}
   timeToReplace: 4000
-  timeToCollect: 6
+  timeToCollect: 5
   defSprite: {fileID: -2950831017993044088, guid: 479ae3ee40fa065439b0b47177348b52, type: 3}
   collectedSprite: {fileID: -2950831017993044088, guid: 479ae3ee40fa065439b0b47177348b52, type: 3}
   actionUIManager: {fileID: 0}

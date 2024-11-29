@@ -30,7 +30,7 @@ public class PlayerHited : HitableGameObject, IHitable
         if (itemData is Weapon)
         {
             health -= d;
-            PlayerStts.Instance.heath -= d;
+            PlayerStts.Instance.health -= d;
 
             StartCoroutine(IEHited(d, i, stanTime));
             if (health <= 0)

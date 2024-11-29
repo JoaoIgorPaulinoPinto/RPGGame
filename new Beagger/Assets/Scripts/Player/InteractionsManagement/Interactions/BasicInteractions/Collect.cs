@@ -39,19 +39,10 @@ public class Collect : InteractableGameObject, IInteractable
         if (actionUIManager == null)
         {
             actionUIManager = GeneralReferences.Instance.ActionUIManager;
-            if (actionUIManager == null)
-            {
-                Debug.LogError("ActionUIManager não encontrado. Verifique a referência.");
-            }
-            else
-            {
-                Debug.Log("ActionUIManager encontrado com sucesso.");
-            }
         }
 
         if (Inventory.Instance == null)
         {
-            Debug.LogError("Inventory.Instance não está configurado. Verifique a inicialização do inventário.");
         }
     }
 
@@ -59,12 +50,10 @@ public class Collect : InteractableGameObject, IInteractable
     {
         if (!isCollected)
         {
-            Debug.Log("Iniciando coleta...");
             collectCoroutine = StartCoroutine(IECollect());
         }
         else
         {
-            Debug.Log("Item já coletado.");
             GeneralReferences.Instance.InteractionUIManager.HideUI();
         }
     }
@@ -75,7 +64,6 @@ public class Collect : InteractableGameObject, IInteractable
         {
             StopCoroutine(collectCoroutine);
             collectCoroutine = null;
-            Debug.Log("Coleta cancelada.");
 
             actionUIManager.StopProgress(); // Para o progresso do slider
             spriteRenderer.sprite = defSprite;
@@ -84,7 +72,6 @@ public class Collect : InteractableGameObject, IInteractable
 
     private IEnumerator IECollect()
     {
-        Debug.Log("IECollect iniciado.");
 
         if (actionUIManager != null)
         {
@@ -92,7 +79,6 @@ public class Collect : InteractableGameObject, IInteractable
         }
         else
         {
-            Debug.LogError("ActionUIManager não está configurado.");
         }
 
         float elapsedTime = 0f;
@@ -100,13 +86,11 @@ public class Collect : InteractableGameObject, IInteractable
         {
             if (!Input.GetKey(PlayerControlsManager.Instance.KeyBinding.key_interact))
             {
-                Debug.Log("Botão de interação liberado, coleta interrompida.");
                 StopInteraction();
                 PlayerControlsManager.Instance.realease = true;
                 yield break;
             }
             elapsedTime += Time.deltaTime;
-            Debug.Log($"Tempo de coleta: {elapsedTime}/{timeToCollect}");
             yield return null;
             PlayerControlsManager.Instance.realease = false;
         }
@@ -121,17 +105,14 @@ public class Collect : InteractableGameObject, IInteractable
         {
             if (Inventory.Instance != null)
             {
-                Debug.Log($"Adicionando item ao inventário: {item.name}");
                 isCollected = true;
                 Inventory.Instance.AddItem(item);
             }
             else
             {
-                Debug.LogError("Inventory.Instance está nulo. Item não pode ser adicionado.");
             }
         }
 
-        Debug.Log("Atualizando sprite para coletado.");
         if (collectedSprite)
         {
             spriteRenderer.sprite = collectedSprite;
@@ -167,6 +148,5 @@ public class Collect : InteractableGameObject, IInteractable
 
         GetComponent<BoxCollider2D>().enabled = true;
         isCollected = false;
-        Debug.Log("Item restaurado e pronto para coleta novamente.");
     }
 }

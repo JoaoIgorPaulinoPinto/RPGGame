@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AnimationManager : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class AnimationManager : MonoBehaviour
         Vector3 direction = behavior.agent.velocity.normalized;
         animator.SetFloat("X", direction.x);
         animator.SetFloat("Y", direction.y);
-        if(direction.x < 0)
+        if (direction.x < 0)
         {
             GetComponent<SpriteRenderer>().flipX = true;
         }

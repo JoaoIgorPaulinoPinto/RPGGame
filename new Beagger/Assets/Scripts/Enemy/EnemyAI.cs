@@ -1,174 +1,129 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    public EnemyData enemyData;
-
-    [SerializeField] NavMeshAgent agent;
-    public Transform player;
-
+    // Estrutura para representar um ponto de patrulha com o tempo de espera
     [System.Serializable]
     public class Point
     {
-        public Transform point; // Local de patrulha
-        public float timeWait;  // Tempo de espera no ponto
+        public Transform patrolPoint;
+        public float patrolTime;
+
+        public Point(Transform patrolPoint, float patrolTime)
+        {
+            this.patrolPoint = patrolPoint;
+            this.patrolTime = patrolTime;
+        }
     }
 
-    public List<Point> locomotionPoints;
+    public Transform player; // Referência ao jogador
+    public List<Point> locomotionPoints; // Lista de pontos de patrulha
+    public float chaseDistance = 10f; // Distância onde o inimigo começa a perseguir o jogador
+    public float patrolSpeed = 2f; // Velocidade de patrulha
+    public float chaseSpeed = 4f; // Velocidade de perseguição
+    public float stopDistance = 1f; // Distância para parar de se mover
 
-    private int currentPointIndex = 0;  // Índice do ponto de patrulha atual
-    private Point currentPoint;
-    private float waitTimer = 0f;
-    private bool waiting = false;
-
-    bool following = false;
-    bool idle = true;
-
-    [SerializeField] float patrolSpeed = 2f; // Velocidade de patrulha
-    [SerializeField] float chaseSpeed = 4f;  // Velocidade de perseguição
-    [SerializeField] float radius;
-    [SerializeField] float maxPlayerDistance;
-    [SerializeField] LayerMask layer;
-
-    [SerializeField] float stopFollowWaitTime = 2f; // Tempo de espera ao parar de seguir
-    private float stopFollowTimer = 0f; // Temporizador ao parar de seguir
-    private bool waitAfterFollowing = false; // Se deve esperar após parar de seguir
-
-    private float attackCooldown = 1f; // Tempo de cadência de ataque
-    private float lastAttackTime = 0f; // Tempo do último ataque
+    private int currentPatrolIndex = 0; // Índice do ponto de patrulha atual
+    private float patrolTimer = 0f; // Temporizador de patrulha
+    private bool isChasing = false; // Se o inimigo está perseguindo o jogador
+    private NavMeshAgent agent; // Componente NavMeshAgent para controlar o movimento
 
     private void Start()
     {
-        agent.speed = patrolSpeed; // Configura a velocidade inicial para patrulha
-        SetNextPatrolPoint(); // Define o primeiro ponto de patrulha
+        agent = GetComponent<NavMeshAgent>(); // Inicializa o NavMeshAgent
+        agent.speed = patrolSpeed; // Define a velocidade de patrulha inicialmente
+        StartPatrol(); // Começa a patrulha
     }
 
     private void Update()
     {
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        Manager();
-    }
-
-    void Manager()
-    {
-        if (PlayerNearby())
+        if (this.isChasing)
         {
-            FollowPlayer();
+            ChasePlayer(); // Executa perseguição
         }
         else
         {
-            if (following) // Se o inimigo estava seguindo o jogador e ele sumiu
-            {
-                StopFollowing();
-            }
-
-            // Espera um tempo antes de voltar a patrulhar
-            if (waitAfterFollowing)
-            {
-                stopFollowTimer += Time.deltaTime;
-                if (stopFollowTimer >= stopFollowWaitTime)
-                {
-                    waitAfterFollowing = false; // Finaliza a espera
-                    stopFollowTimer = 0f; // Reseta o temporizador
-                    Patrol(); // Volta a patrulhar
-                }
-            }
-            else
-            {
-                Patrol(); // Volta a patrulhar diretamente se não estiver esperando
-            }
+            Patrol(); // Executa patrulha
         }
-    }
+        // Verifica a distância do inimigo até o jogador
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+      
 
-    void Patrol()
-    {
-        if (idle && !waiting)
+        // Verifica se o inimigo deve começar a perseguir ou voltar à patrulha
+        if (distanceToPlayer <= chaseDistance && !this.isChasing)
         {
-            SetNextPatrolPoint(); // Define o próximo ponto de patrulha
-            idle = false;
-            agent.SetDestination(currentPoint.point.position);
+            this.isChasing = true;
+            StartChasing(); // Inicia a perseguição
         }
-        else if (currentPoint != null && Vector3.Distance(agent.transform.position, currentPoint.point.position) <= 1f)
+        else if (distanceToPlayer > chaseDistance && this.isChasing)
         {
-            if (!waiting)
-            {
-                waiting = true;
-                waitTimer = 0f; // Resetando o temporizador
-            }
-
-            waitTimer += Time.deltaTime;
-
-            if (waitTimer >= currentPoint.timeWait)
-            {
-                waiting = false; // Reseta o estado de espera
-                idle = true; // Permite mover para o próximo ponto
-            }
+            this.isChasing = false;
+            StartPatrol(); // Retorna à patrulha
         }
+
+        // Se está perseguindo, chama o método de perseguição
+
     }
 
-    void FollowPlayer()
+    // Função chamada ao iniciar a patrulha
+    private void StartPatrol()
     {
-        following = true;
-        agent.speed = chaseSpeed; // Configura a velocidade para perseguição
-        agent.SetDestination(player.position);
-        idle = false; // Para de patrulhar enquanto segue o jogador
-    }
-
-    void StopFollowing()
-    {
-        following = false;
-        idle = true; // Não patrulhar imediatamente
-        waitAfterFollowing = true; // Inicia a espera
-        agent.ResetPath(); // Para o movimento atual
-        stopFollowTimer = 0f; // Reseta o temporizador de espera
-    }
-
-    bool PlayerNearby()
-    {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, radius, layer);
-        foreach (var item in hitColliders)
+        if (!isChasing && locomotionPoints.Count > 0)
         {
-            if (item.CompareTag("Player"))
+            ChooseNewPatrolPoint(); // Escolhe um novo ponto de patrulha
+        }
+    }
+
+    // Função chamada ao iniciar a perseguição
+    private void StartChasing()
+    {
+        // Define a velocidade de perseguição
+        agent.speed = chaseSpeed; // Ajusta a velocidade para perseguir o jogador
+    }
+
+    // Função de patrulha
+    private void Patrol()
+    {
+        if (!isChasing && locomotionPoints.Count > 0)
+        {
+            patrolTimer += Time.deltaTime;
+
+            // Se o tempo de patrulha for maior ou igual ao tempo definido para o ponto de patrulha atual
+            if (patrolTimer >= locomotionPoints[currentPatrolIndex].patrolTime)
             {
-                return true; // Jogador dentro do raio
+                // Mover para o próximo ponto de patrulha
+                ChooseNewPatrolPoint();
+                patrolTimer = 0f; // Resetar o temporizador
             }
         }
-        return false; // Jogador fora do raio
     }
 
-    private void SetNextPatrolPoint()
+    // Função para perseguir o jogador
+    private void ChasePlayer()
     {
-        // Define o próximo ponto de patrulha e reinicia o índice ao chegar ao fim
-        currentPoint = locomotionPoints[currentPointIndex];
-        currentPointIndex = (currentPointIndex + 1) % locomotionPoints.Count; // Cicla os pontos
+        // Continuar perseguindo o jogador
+        agent.SetDestination(player.position); // Define o destino como a posição do jogador
     }
 
-    private void OnDrawGizmos()
+    // Função para escolher um novo ponto de patrulha
+    private void ChooseNewPatrolPoint()
     {
-        // Define a cor do gizmo para visualizar o raio
-        Gizmos.color = Color.red;
-
-        // Desenha um círculo ao redor do inimigo para representar o raio de detecção
-        Gizmos.DrawWireSphere(transform.position, radius);
+        if (locomotionPoints.Count > 0)
+        {
+            currentPatrolIndex = Random.Range(0, locomotionPoints.Count);
+            agent.SetDestination(locomotionPoints[currentPatrolIndex].patrolPoint.position); // Define o destino de patrulha
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Verifica se o inimigo atingiu o jogador
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Verifica se o tempo de cadência passou antes de permitir o ataque
-            if (Time.time - lastAttackTime >= attackCooldown)
-            {
-                // Atualiza o tempo do último ataque
-                lastAttackTime = Time.time;
-
-                // Executa o ataque
-                collision.gameObject.TryGetComponent(out IHitable hitable);
-                hitable.Hited(enemyData.atackDamage, transform, enemyData.atackStanTime, enemyData.weapon);
-            }
+            // Implementar a lógica de ataque, conforme necessário
         }
     }
 }

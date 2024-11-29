@@ -5,9 +5,16 @@ public class EconomyManager : MonoBehaviour
     public static EconomyManager instance;
     public ProductsGeneralTable ProductsGeneralTable;
 
-    private void Start()
+    private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Método para ajustar os preços

@@ -33,12 +33,14 @@ public class LocomotionPointManager : MonoBehaviour
             if (child.GetComponent<LocomotionPoint>() != null)
             {
                 locomotionPoints.Add(child);
+                if (child.CompareTag("SleepPoint")) GetComponent<NPCBehavior>().pointToSleep = child;
             }
 
             // Chama recursivamente para verificar os filhos dos filhos
             if (child.childCount > 0)
             {
                 FindPointsInChildren(child);
+
             }
         }
     }

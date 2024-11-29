@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ca90820330d9041b281f1240bb6dd6, type: 3}
+  m_Name: Tabua Nobre
+  m_EditorClassIdentifier: 
+  origin: Carvalho
+  weight: 2
+  itemType: 6
+  rarityLevel: 1
+  condition: 100
+  itemName: Tabua de madeira nobre
+  description: Pode valer alguma coisa...
+  icon: {fileID: 2329768055507620706, guid: 6d5b209b5c883034d9dd394d95a851cb, type: 3}
+  prefab: {fileID: 6791387831742643438, guid: 82235438b7d8bd64bad9a7a179d3ba12, type: 3}
+  InHandItemprefab: {fileID: 6791387831742643438, guid: 82235438b7d8bd64bad9a7a179d3ba12, type: 3}

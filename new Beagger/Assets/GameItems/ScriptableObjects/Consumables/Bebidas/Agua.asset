@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d33d8de5f330348a314b7b62394642, type: 3}
+  m_Name: Agua
+  m_EditorClassIdentifier: 
+  origin: 'Loja '
+  weight: 0.5
+  itemType: 1
+  rarityLevel: 0
+  condition: 100
+  itemName: Agua
+  description: Use para saciar sua fome.
+  icon: {fileID: 7014741509439722944, guid: f81cc83a4865d0848ae50db313c85636, type: 3}
+  prefab: {fileID: 6935112757027500645, guid: b0719f235cf293f469252c5c818a7441, type: 3}
+  InHandItemprefab: {fileID: 6935112757027500645, guid: b0719f235cf293f469252c5c818a7441, type: 3}
+  efectPower: 100
+  time: 3
+  type: 1

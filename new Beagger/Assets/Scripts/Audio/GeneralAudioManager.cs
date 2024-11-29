@@ -4,26 +4,13 @@ using System.Linq;
 public class GeneralAudioManager : MonoBehaviour
 {
     [SerializeField]ConfigurationScreenManager configuration;
-    public static GeneralAudioManager Instance;
+   
 
     [Header("Audio Sources")]
     public AudioSource[] generalSources; // Array de fontes de áudio geral
     public AudioSource[] musicSources;   // Array de fontes de música
     public AudioSource[] sfxSources;     // Array de fontes de SFX
 
-    private void Awake()
-    {
-        // Configuração de Singleton para que haja apenas uma instância do GeneralAudioManager
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     public void SetMusicVolume(float volume)
     {

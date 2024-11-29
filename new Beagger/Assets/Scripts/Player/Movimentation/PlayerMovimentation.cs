@@ -39,15 +39,9 @@ public class PlayerMovementation : MonoBehaviour
         {
             EquipedItemsManager.Instance.prefab.TryGetComponent<SpriteRenderer>(out SpriteRenderer spRender);
 
-            if (Direction.y > 0)
-            {
 
-                spRender.sortingOrder = 2;
-            }
-            else
-            {
-                spRender.sortingOrder = 3;
-            }
+              spRender.sortingOrder = 3;
+            
         }
 
     }

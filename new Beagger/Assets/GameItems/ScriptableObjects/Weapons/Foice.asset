@@ -20,8 +20,8 @@ MonoBehaviour:
   itemName: Foice
   description: Use para combater inimigos.
   icon: {fileID: 8958985123417376280, guid: 6d5b209b5c883034d9dd394d95a851cb, type: 3}
-  prefab: {fileID: 6791387831742643438, guid: c973f158841217147bb8f287e306cc3d, type: 3}
-  InHandItemprefab: {fileID: 6791387831742643438, guid: c973f158841217147bb8f287e306cc3d, type: 3}
+  prefab: {fileID: 6791387831742643438, guid: 8f5acedd70cd8974598ca61f34f0949a, type: 3}
+  InHandItemprefab: {fileID: 6791387831742643438, guid: 8f5acedd70cd8974598ca61f34f0949a, type: 3}
   range: 1
   cadence: 1
   weaponType: 0

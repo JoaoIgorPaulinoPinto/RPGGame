@@ -16,7 +16,7 @@ public class Consumable : ItemData
             case ConsumableType.Food: PlayerStts.Instance.hunger += efectPower; break;
             case ConsumableType.Water: PlayerStts.Instance.thirst += efectPower; break;
             case ConsumableType.Sweet: PlayerStts.Instance.happy += efectPower; break;
-            case ConsumableType.Poison: PlayerStts.Instance.heath -= efectPower; break;
+            case ConsumableType.Poison: PlayerStts.Instance.health -= efectPower; break;
         }
     }
 }

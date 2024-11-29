@@ -128,6 +128,8 @@ GameObject:
   - component: {fileID: 2755373404765216051}
   - component: {fileID: 5405120202893865839}
   - component: {fileID: 1430434122517890124}
+  - component: {fileID: 5627506893993068139}
+  - component: {fileID: -9094430049254882865}
   m_Layer: 6
   m_Name: Inimigo
   m_TagString: Untagged
@@ -192,8 +194,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
-  m_Color: {r: 0.8773585, g: 0.16644639, b: 0.012415428, a: 1}
+  m_Sprite: {fileID: -1226329779, guid: 2702767f21ccad0468f5baf25f3ad090, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -235,7 +237,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.47}
+  m_Offset: {x: 0.06, y: -0.78}
   serializedVersion: 2
   m_Radius: 0.5
 --- !u!50 &3684016364757354344
@@ -274,7 +276,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1975865280929673842}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.2
+  m_Radius: 0.75
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -283,8 +285,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
+  m_Height: 2.4375
+  m_BaseOffset: 1.21875
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &7439742936995504256
@@ -319,28 +321,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba8e7ca2f639d3f4ba3dc99b730d99f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 5405120202893865839}
-  agent: {fileID: 4384015844391575528}
   player: {fileID: 0}
-  locomotionPoints:
-  - point: {fileID: 0}
-    timeWait: 3
-  - point: {fileID: 0}
-    timeWait: 3
-  - point: {fileID: 0}
-    timeWait: 3
-  - point: {fileID: 0}
-    timeWait: 3
-  - point: {fileID: 0}
-    timeWait: 3
+  locomotionPoints: []
+  chaseDistance: 10
   patrolSpeed: 2
   chaseSpeed: 4
-  radius: 5.5
-  maxPlayerDistance: 5
-  layer:
-    serializedVersion: 2
-    m_Bits: 1024
-  stopFollowWaitTime: 2
+  stopDistance: 0
 --- !u!114 &5405120202893865839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,6 +439,39 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &5627506893993068139
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975865280929673842}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7574060579647b84b8bde7695abf53dd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-9094430049254882865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975865280929673842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ceddeb94674b2c488ca452e7b8730a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3339605676789672644
 GameObject:
   m_ObjectHideFlags: 0
